@@ -3,82 +3,48 @@
 
 const char* ssid = "Whateverthisis"; // Your WiFi SSID
 const char* password = "VeryGoodPassword"; // Your WiFi password
-const char* serverAddress = "192.168.82.236"; // IP address of the server
-int serverPort = 80; // Port number of the server
-String url = "/data/?sensor0_reading=0&sensor1_reading=0"; // URL of the server
-int button1Pin = 5; // Pin number for button 1
-int button2Pin = 14; // Pin number for button 2
-bool button1State = false; // State of button 1
-bool button2State = false; // State of button 2
-WiFiClient wifiClient; // WiFi client object
+const String serverURL = "http://192.168.116.207"; // Replace with the IP address of your server-side ESP8266
+
+const int ledPin = 13; // Pin for LED
 
 void setup() {
   Serial.begin(115200);
-  delay(10);
-
-  pinMode(button1Pin, INPUT_PULLUP);
-  pinMode(button2Pin, INPUT_PULLUP);
-
-  WiFi.mode(WIFI_STA);
+  
+  pinMode(ledPin, OUTPUT);
+  
   WiFi.begin(ssid, password);
-
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
   }
-
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
+  
+  Serial.println("Connected to WiFi");
 }
 
 void loop() {
-  // Read button states
-  button1State = digitalRead(button1Pin);
-  button2State = digitalRead(button2Pin);
-
-  if (WiFi.status() == WL_CONNECTED) {
-    HTTPClient http;
-
-    // Send GET request to turn on the LED on the server-side
-    if (button1State == LOW) {
-      http.begin(wifiClient, serverAddress, serverPort, "/led/on");
-      int httpResponseCode = http.GET();
-      if (httpResponseCode == 200) {
-        Serial.println("LED turned on");
-      } else {
-        Serial.print("Error turning on LED. HTTP response code: ");
-        Serial.println(httpResponseCode);
-      }
-      http.end();
-    }
-
-    // Send GET request to turn off the LED on the server-side
-    if (button2State == LOW) {
-      http.begin(wifiClient, serverAddress, serverPort, "/led/off");
-      int httpResponseCode = http.GET();
-      if (httpResponseCode == 200) {
-        Serial.println("LED turned off");
-      } else {
-        Serial.print("Error turning off LED. HTTP response code: ");
-        Serial.println(httpResponseCode);
-      }
-      http.end();
-    }
-
-    // Send GET request to receive button status
-    http.begin(wifiClient, serverAddress, serverPort, url);
-    int httpResponseCode = http.GET();
-    if (httpResponseCode == 200) {
-      String response = http.getString();
-      Serial.println("Button status: " + response);
+  // Control LED based on button status received from server-side
+  // Example: send HTTP requests to server-side and update LED based on response
+  
+  // Example: send request for Button 1 status
+  WiFiClient client; // Create a WiFiClient object
+  HTTPClient http;
+  http.begin(client, serverURL + "/button1"); // Pass the WiFiClient object to HTTPClient.begin()
+  int httpCode = http.GET();
+  if (httpCode > 0) {
+    if (httpCode == 200) {
+      Serial.println("Button 1 is pressed");
+      digitalWrite(ledPin, HIGH); // Turn on LED
     } else {
-      Serial.print("Error receiving button status. HTTP response code: ");
-      Serial.println(httpResponseCode);
+      Serial.println("Button 1 is not pressed");
+      digitalWrite(ledPin, LOW); // Turn off LED
     }
-    http.end();
+  } else {
+    Serial.println("Error sending request");
   }
-
-  delay(100); // Add a small delay to debounce the buttons
+  http.end();
+  
+  // Example: send request for Button 2 status
+  // Similar to Button 1, update LED based on response
+  
+  delay(1000);
 }
