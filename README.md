@@ -1,3 +1,3 @@
 # Nexercise
-Currently, the server and client is not working.
-The Dot matrix test creates an M and W pattern on it.
+server and or client doesnt work
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
