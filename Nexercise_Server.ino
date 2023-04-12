@@ -12,43 +12,76 @@ ESP8266WebServer server(80);
 volatile bool button1Status = false;
 volatile bool button2Status = false;
 
-void ICACHE_RAM_ATTR handleButton1() {
-  Serial.println("Button 1 Pressed");
-  // Toggle the button 1 status
-  button1Status = !button1Status;
+// Variables to store the last button state and the last time the button was debounced
+volatile bool lastButton1State = HIGH;
+volatile bool lastButton2State = HIGH;
+unsigned long lastDebounceTime1 = 0;
+unsigned long lastDebounceTime2 = 0;
+unsigned long debounceDelay = 50; // Debounce delay in milliseconds
 
-  // Send the updated button 1 status to the client-side ESP8266
-  String status = button1Status ? "on" : "off";
-  server.send(200, "text/plain", status);
+// Function prototype for handleRoot
+void handleRoot();
+
+void ICACHE_RAM_ATTR handleButton1() {
+  // Debounce the button input
+  if ((millis() - lastDebounceTime1) < debounceDelay) {
+    return;
+  }
+  
+  lastDebounceTime1 = millis();
+
+  // Read the current state of the button
+  bool button1State = digitalRead(5);
+
+  // Check if the button state has changed
+  if (button1State != lastButton1State) {
+    // Update the last button state
+    lastButton1State = button1State;
+
+    // Check if the button is pressed
+    if (button1State == LOW) {
+      Serial.println("Button 1 Pressed");
+      // Toggle the button 1 status
+      button1Status = !button1Status;
+
+      // Send the updated button 1 status to the client-side ESP8266
+      String status = button1Status ? "on" : "off";
+      server.send(200, "text/plain", status);
+    }
+  }
 }
 
 void ICACHE_RAM_ATTR handleButton2() {
-  Serial.println("Button 2 Pressed");
-  // Toggle the button 2 status
-  button2Status = !button2Status;
+  // Debounce the button input
+  if ((millis() - lastDebounceTime2) < debounceDelay) {
+    return;
+  }
+  
+  lastDebounceTime2 = millis();
 
-  // Send the updated button 2 status to the client-side ESP8266
-  String status = button2Status ? "on" : "off";
-  server.send(200, "text/plain", status);
-}
+  // Read the current state of the button
+  bool button2State = digitalRead(14);
 
-void handleRoot() {
-  String html = "<html><body>";
-  html += "<h1>Server-side ESP8266</h1>";
-  html += "<h2>Button 1 Status: ";
-  html += button1Status ? "ON" : "OFF";
-  html += "</h2>";
-  html += "<h2>Button 2 Status: ";
-  html += button2Status ? "ON" : "OFF";
-  html += "</h2>";
-  html += "<h3><a href=\"/button1\">Toggle Button 1</a></h3>";
-  html += "<h3><a href=\"/button2\">Toggle Button 2</a></h3>";
-  html += "</body></html>";
-  server.send(200, "text/html", html);
+  // Check if the button state has changed
+  if (button2State != lastButton2State) {
+    // Update the last button state
+    lastButton2State = button2State;
+
+    // Check if the button is pressed
+    if (button2State == LOW) {
+      Serial.println("Button 2 Pressed");
+      // Toggle the button 2 status
+      button2Status = !button2Status;
+
+      // Send the updated button 2 status to the client-side ESP8266
+      String status = button2Status ? "on" : "off";
+      server.send(200, "text/plain", status);
+    }
+  }
 }
 
 void setup() {
-  // Start Serial communication
+  // Initialize serial communication
   Serial.begin(115200);
 
   // Connect to Wi-Fi
@@ -57,25 +90,35 @@ void setup() {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
-  Serial.println("Connected to WiFi. IP:");
-  Serial.print(WiFi.localIP());
+  Serial.println("Connected to WiFi");
 
-  // Configure the button pins as input with internal pull-up resistors
+  // Set up the buttons as inputs
   pinMode(5, INPUT_PULLUP);
   pinMode(14, INPUT_PULLUP);
 
-  // Attach interrupts to the button pins to detect button presses
-  attachInterrupt(digitalPinToInterrupt(5), handleButton1, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(14), handleButton2, CHANGE);
+  // Attach interrupts to the buttons
+  attachInterrupt(digitalPinToInterrupt(5), handleButton1, FALLING);
+  attachInterrupt(digitalPinToInterrupt(14), handleButton2, FALLING);
 
-  // Start the server
-  server.on("/", handleRoot);
-  server.on("/button1", handleButton1);
-  server.on("/button2", handleButton2);
-  server.begin();
-  Serial.println("Server started");
+// Start the server
+server.begin();
+Serial.println("Server started");
+
+// Print the ESP8266 IP address
+Serial.print("IP address: ");
+Serial.println(WiFi.localIP());
 }
 
 void loop() {
-  server.handleClient();
+// Handle client requests
+server.handleClient();
+}
+
+void handleRoot() {
+// Serve the HTML page with the button status
+String html = "<html><body>";
+html += "<h1>Button 1: " + String(button1Status ? "ON" : "OFF") + "</h1>";
+html += "<h1>Button 2: " + String(button2Status ? "ON" : "OFF") + "</h1>";
+html += "</body></html>";
+server.send(200, "text/html", html);
 }
