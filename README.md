@@ -1,5 +1,6 @@
 # Nexercise
 server and or client doesnt work
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+suck my cok 
+
 
 current problem: everything
