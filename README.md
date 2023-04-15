@@ -1,5 +1,9 @@
 # Nexercise
 
+## Currently facing these problems:
+- Getting fucked up by ESP shit 
+- The message can be only display once
+- 
 ## Currently working on
 - Dot matrix showing randomized alphabet
 - 2 buttons represent 'W' and 'M' 
