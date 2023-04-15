@@ -8,6 +8,7 @@
 ## Currently working on
 - Dot matrix showing randomized alphabet
 - 2 buttons represent "W" and "M" 
+- Making sub-project: connect 2 buttons to a led and turn it on and off
 
 ### Source of ESP Library 
 - https://github.com/esp8266/Arduino
