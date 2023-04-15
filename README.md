@@ -46,6 +46,17 @@
 
 4. Use the MQTT client library to publish messages to the broker or subscribe to messages on specific topics. You can find examples of how to use the MQTT client library in the library's documentation or online tutorials.
 
+### MQTT 
+MQTT Essentials by HiveMQ: https://www.hivemq.com/mqtt-essentials/
+
+MQTT.fx - a graphical MQTT client: https://mqttfx.jensd.de/
+
+Eclipse Paho - a set of MQTT client libraries: https://www.eclipse.org/paho/
+
+Adafruit IO - a cloud-based MQTT service: https://io.adafruit.com/
+
+CloudMQTT - a cloud-based MQTT service: https://www.cloudmqtt.com/
+
 ### Mosquitto documentation: 
 - https://mosquitto.org/documentation/
 
