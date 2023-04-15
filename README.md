@@ -7,7 +7,7 @@
 
 ## Currently working on
 - Dot matrix showing randomized alphabet
-- 2 buttons represent 'W' and 'M' 
+- 2 buttons represent "W" and "M" 
 
 ### Source of ESP Library 
 - https://github.com/esp8266/Arduino
