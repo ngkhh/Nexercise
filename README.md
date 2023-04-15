@@ -1,7 +1,17 @@
 # Nexercise
-server and or client doesnt work
 
-current problem: everything
+## Currently working on
+- Dot matrix showing randomized alphabet
+- 2 buttons represent 'W' and 'M' 
 
+## Source of ESP Library 
+- https://github.com/esp8266/Arduino
 
-cómeme el donut
+## ESP board 
+- https://arduino.esp8266.com/stable/package_esp8266com_index.json
+
+## How to use an ESP board
+- https://electropeak.com/learn/how-to-use-esp8266-01-pins-and-leds/
+
+## Dot Matrix docs
+- https://www.open-electronics.org/led-dot-matrix-display-with-nodemcu/
