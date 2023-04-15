@@ -3,7 +3,6 @@
 ## Currently facing these problems:
 - Getting fucked up by ESP shit 
 - Getting fucked by MQTT Stuff
-- The message can be only display once
 
 ## Currently working on
 - Dot matrix showing randomized alphabet
