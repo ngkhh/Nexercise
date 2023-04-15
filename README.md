@@ -9,16 +9,16 @@
 - Dot matrix showing randomized alphabet
 - 2 buttons represent 'W' and 'M' 
 
-## Source of ESP Library 
+### Source of ESP Library 
 - https://github.com/esp8266/Arduino
 
-## ESP board 
+### ESP board 
 - https://arduino.esp8266.com/stable/package_esp8266com_index.json
 
-## How to use an ESP board
+### How to use an ESP board
 - https://electropeak.com/learn/how-to-use-esp8266-01-pins-and-leds/
 
-## Dot Matrix docs
+### Dot Matrix docs
 - https://www.open-electronics.org/led-dot-matrix-display-with-nodemcu/
 
 
@@ -45,14 +45,14 @@
 
 4. Use the MQTT client library to publish messages to the broker or subscribe to messages on specific topics. You can find examples of how to use the MQTT client library in the library's documentation or online tutorials.
 
-## Mosquitto documentation: 
+### Mosquitto documentation: 
 - https://mosquitto.org/documentation/
 
-## MQTT client library for ESP8266: 
+### MQTT client library for ESP8266: 
 - https://github.com/knolleary/pubsubclient
 
-## Getting started with MQTT and ESP8266: 
+### Getting started with MQTT and ESP8266: 
 - https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/
 
-## Connecting ESP8266 to MQTT broker with TLS/SSL encryption: 
+### Connecting ESP8266 to MQTT broker with TLS/SSL encryption: 
 - https://diyprojects.io/connect-esp8266-mqtt-broker-tls-ssl-lets-encrypt/#.YHwv8-gzY2w
