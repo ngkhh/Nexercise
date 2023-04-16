@@ -1,5 +1,9 @@
 # Nexercise
 
+## MQTT help suggested by Wong Yi Jin (Senior Alumni)
+- https://techtutorialsx.com/2017/04/24/esp32-publishing-messages-to-mqtt-topic/
+- https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/
+
 ## Currently facing these problems:
 - Getting fucked up by ESP shit 
 - Getting fucked by MQTT Stuff
