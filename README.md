@@ -7,13 +7,19 @@
 - https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/
 
 ## Currently facing these problems:
-- Getting fucked up by ESP shit 
-- Getting fucked by MQTT Stuff
+- Laziness
+- Exam being very soon
+- Lack of motivation
+- Skill issue
 
 ## Currently working on
+- MQTT on ESP8266(s)
 - Dot matrix showing randomized alphabet
 - 2 buttons represent "W" and "M" 
-- Making sub-project: connect 2 buttons to a led and turn it on and off
+
+## Planned
+- Connecting 4 ESP8266 with MQTT
+- Combine the buttons and dot matrix to create a game
 
 ### Source of ESP Library 
 - https://github.com/esp8266/Arduino
@@ -73,6 +79,3 @@ CloudMQTT - a cloud-based MQTT service: https://www.cloudmqtt.com/
 
 ### Connecting ESP8266 to MQTT broker with TLS/SSL encryption: 
 - https://diyprojects.io/connect-esp8266-mqtt-broker-tls-ssl-lets-encrypt/#.YHwv8-gzY2w
-
-# cómeme el donut
-# AMOGUS
