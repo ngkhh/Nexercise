@@ -14,7 +14,7 @@ const char* mqtt_topic = "your_MQTT_topic";
 // Pin definitions
 #define BUTTON1_PIN 2
 #define BUTTON2_PIN 3
-#define LED_PIN 4
+#define LED_PIN 16
 
 // Create a Wi-Fi client object
 WiFiClient espClient;
