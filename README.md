@@ -11,6 +11,7 @@
 - Exam being very soon
 - Lack of motivation
 - Skill issue
+- MQTT is not connecting with error code                   rc=-4
 
 ## Currently working on
 - MQTT on ESP8266(s)
