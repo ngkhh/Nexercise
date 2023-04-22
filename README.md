@@ -2,6 +2,9 @@
 
 ## Finally something useful
 - https://console.hivemq.cloud/clients/arduino-esp8266?uuid=597c9bc0b8d0400b8f723ca742f37e73
+### tis might help
+- https://community.hivemq.com/t/arduino-example-with-server-signed-certificate/502
+
 ## MQTT help suggested by Wong Yi Jin (Senior Alumni)
 - https://techtutorialsx.com/2017/04/24/esp32-publishing-messages-to-mqtt-topic/
 - https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/
