@@ -1,5 +1,8 @@
 # Nexercise
 
+## for NIGEE
+https://cedalo.com/blog/mqtt-connection-beginners-guide/
+
 ## Finally something useful
 - https://console.hivemq.cloud/clients/arduino-esp8266?uuid=597c9bc0b8d0400b8f723ca742f37e73
 ### tis might help
