@@ -1,6 +1,9 @@
 # Nexercise
 
-## for NIGEE
+### Google drive link
+https://drive.google.com/drive/folders/17Xb0VvSZStTZf7wnS8am0EcS6U0mjgPa
+
+## MQTT Connection guide
 https://cedalo.com/blog/mqtt-connection-beginners-guide/
 
 ## Finally something useful
