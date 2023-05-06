@@ -2,20 +2,20 @@
 #include <PubSubClient.h>
 
 // MQTT broker settings
-const char* mqttServer = "mqtt.example.com";
-const int mqttPort = 1883;
-const char* mqttUser = "your_mqtt_username";
-const char* mqttPassword = "your_mqtt_password";
-const char* ledTopic = "your_mqtt_led_topic";
+const char* mqttServer = "597c9bc0b8d0400b8f723ca742f37e73.s2.eu.hivemq.cloud";
+const int mqttPort = 8883;
+const char* mqttUser = "testing";
+const char* mqttPassword = "Taneelim2019";
+const char* ledTopic = "testing";
 
 // WiFi settings
 const char* ssid = "your_wifi_ssid";
 const char* password = "your_wifi_password";
 
 // Pin definitions
-const int buttonPin1 = 0; // Change to your first button's pin
-const int buttonPin2 = 2; // Change to your second button's pin
-const int ledPin = 16; // Change to your LED's pin
+const int buttonPin1 = 0;  // Change to your first button's pin
+const int buttonPin2 = 2;  // Change to your second button's pin
+const int ledPin = 16;     // Change to your LED's pin
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -87,16 +87,18 @@ void loop() {
       }
     }
   }
-  
+
   // Handle button states
   if (digitalRead(buttonPin1) == LOW) {
     if (!button1State) {
       button1State = true;
-      Serial.println("Button 1 pressed");
+      Serial.print("Button 1: ");
+      Serial.print(button1State);
       ledState = !ledState;
       digitalWrite(ledPin, ledState);
       client.publish(ledTopic, ledState ? "1" : "0");
     }
+
   } else {
     button1State = false;
   }
