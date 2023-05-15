@@ -1,4 +1,5 @@
-# Nexercise
+# Nexercise (Sub Branch)
+###### im crying
 
 ## Finally something useful
 - https://console.hivemq.cloud/clients/arduino-esp8266?uuid=597c9bc0b8d0400b8f723ca742f37e73
@@ -9,64 +10,14 @@
 - https://techtutorialsx.com/2017/04/24/esp32-publishing-messages-to-mqtt-topic/
 - https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/
 
+## Currently facing these problems (physically)
+- Exam till 15th May 2023
+- Laziness of reading docs
+- Tired of failure
+
 ## Currently facing these problems:
-- Getting fucked up by ESP shit 
-- Getting fucked by MQTT Stuff
-
-## Currently working on
-- Dot matrix showing randomized alphabet
-- 2 buttons represent "W" and "M" 
-- Making sub-project: connect 2 buttons to a led and turn it on and off
-
-### Source of ESP Library 
-- https://github.com/esp8266/Arduino
-
-### ESP board 
-- https://arduino.esp8266.com/stable/package_esp8266com_index.json
-
-### How to use an ESP board
-- https://electropeak.com/learn/how-to-use-esp8266-01-pins-and-leds/
-
-### Dot Matrix docs
-- https://www.open-electronics.org/led-dot-matrix-display-with-nodemcu/
-
-
-# MQTT
-## Setting up a local MQTT broker using Mosquitto:
-
-1. Install Mosquitto broker software on your computer or a dedicated device like a Raspberry Pi. You can download the software from the Mosquitto website.
-
-2. After installation, open the Mosquitto configuration file, which is usually located in the installation directory. The file is named `"mosquitto.conf"`. You can edit the file using a text editor like Notepad or Sublime Text.
-
-3. In the configuration file, you can specify the port number for the broker to listen on, enable security features like TLS/SSL encryption, and set up authentication for clients to connect to the broker. You can find detailed instructions on how to configure Mosquitto in the Mosquitto documentation.
-
-4. After configuring the Mosquitto broker, save the configuration file and start the broker by running the command `"mosquitto -c /path/to/mosquitto.conf"` on the terminal or command prompt.
-
-5. Verify that the Mosquitto broker is running by subscribing to a topic using the Mosquitto command-line tool or a GUI tool like MQTT.fx. You should be able to see the messages published to the topic.
-
-## Connecting your ESP8266 devices to the MQTT broker:
-
-1. Install the MQTT client library for ESP8266 on your development environment. You can find the library on the Arduino IDE or PlatformIO library manager.
-
-2. Import the MQTT library to your ESP8266 project, and initialize the MQTT client object by providing the MQTT broker's IP address or hostname, port number, and authentication credentials.
-
-3. In your code, you can create MQTT topics that your ESP8266 devices can publish and subscribe to, such as sensor readings or control commands.
-
-4. Use the MQTT client library to publish messages to the broker or subscribe to messages on specific topics. You can find examples of how to use the MQTT client library in the library's documentation or online tutorials.
-
-### MQTT 
-MQTT Essentials by HiveMQ: https://www.hivemq.com/mqtt-essentials/
-
-MQTT.fx - a graphical MQTT client: https://mqttfx.jensd.de/
-
-Eclipse Paho - a set of MQTT client libraries: https://www.eclipse.org/paho/
-
-Adafruit IO - a cloud-based MQTT service: https://io.adafruit.com/
-
-CloudMQTT - a cloud-based MQTT service: https://www.cloudmqtt.com/
-
-### Mosquitto documentation: 
-- https://mosquitto.org/documentation/
+- Fxxked up with MQTT stuff
+- Fxxked up with SSL Certificate (i have no idea what are those)
 
 ### MQTT client library for ESP8266: 
 - https://github.com/knolleary/pubsubclient
@@ -77,5 +28,3 @@ CloudMQTT - a cloud-based MQTT service: https://www.cloudmqtt.com/
 ### Connecting ESP8266 to MQTT broker with TLS/SSL encryption: 
 - https://diyprojects.io/connect-esp8266-mqtt-broker-tls-ssl-lets-encrypt/#.YHwv8-gzY2w
 
-# cómeme el donut
-# AMOGUS
