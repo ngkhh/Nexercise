@@ -26,6 +26,7 @@ https://cedalo.com/blog/mqtt-connection-beginners-guide/
 - MQTT on ESP8266(s)
 - Dot matrix showing randomized alphabet
 - 2 buttons represent "W" and "M" 
+- Designing a schematic, PCB and case for it
 
 ## Planned
 - Connecting 4 ESP8266 with MQTT
