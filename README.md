@@ -9,6 +9,7 @@
 ## MQTT help suggested by Wong Yi Jin (Senior Alumni)
 - https://techtutorialsx.com/2017/04/24/esp32-publishing-messages-to-mqtt-topic/
 - https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/
+- https://randomnerdtutorials.com/esp8266-nodemcu-client-server-wi-fi/
 
 ## Currently facing these problems (physically)
 - Exam till 15th May 2023
