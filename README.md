@@ -14,7 +14,7 @@
 ## Currently facing these problems (physically)
 - Exam till 15th May 2023
 - Laziness of reading docs
-- Tired of failure
+- Tired scam websites
 
 ## Currently facing these problems:
 - Fxxked up with MQTT stuff
