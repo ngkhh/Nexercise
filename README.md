@@ -1,6 +1,7 @@
 # Nexercise (Sub Branch)
 ###### im crying 😭
-###### THIS IS A PLACE FOR STEVE DOING HIS STUFF DO NOT TOUCH 😔
+###### THIS IS A PLACE FOR STEVE DOING HIS STUFF 
+DO NOT TOUCH 😔
 ##### Indian Tech Support stuff
 - https://how2electronics.com/power-supply-for-nodemcu-with-battery-charger-booster/
 
