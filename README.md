@@ -17,7 +17,7 @@ https://cedalo.com/blog/mqtt-connection-beginners-guide/
 
 ## Currently facing these problems:
 - Laziness
-- Exam being very soon
+- Mozila certs not generating
 - Lack of motivation
 - Skill issue
 - MQTT is not connecting with error code                   rc=-4
