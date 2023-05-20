@@ -47,5 +47,5 @@ https://cedalo.com/blog/mqtt-connection-beginners-guide/
 #### MQTT client library for ESP8266: 
 - https://github.com/knolleary/pubsubclient
 
-###£ Getting started with MQTT and ESP8266: 
+#### Getting started with MQTT and ESP8266: 
 - https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/
