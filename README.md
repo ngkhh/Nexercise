@@ -1,51 +1,59 @@
 # Nexercise
 
-### Google drive link
+This is the README file for the Nexercise GitHub project. Nexercise is a project focused on utilizing MQTT communication and ESP8266 microcontrollers to create an interactive exercise game. This document provides information on how to set up and use the project, as well as relevant links and resources.
+
+## Google Drive Link
 - [Click Here](https://drive.google.com/drive/folders/17Xb0VvSZStTZf7wnS8am0EcS6U0mjgPa)
 
-##### Docs mission
-- Complete BOM
-- Make our PPT better
-- Start writing script
-- Present everything when it's ready!
+## Todo
+The main goals of the project are as follows:
+- Complete Bill of Materials (BOM)
+- Improve the project's PowerPoint presentation
+- Start writing the script for the project
+- Prepare for a comprehensive presentation
 
-## MQTT Connection guide
-https://cedalo.com/blog/mqtt-connection-beginners-guide/
+## MQTT Connection Guide
+For a beginner's guide on MQTT connection, please refer to the following link:
+- [MQTT Connection Beginner's Guide](https://cedalo.com/blog/mqtt-connection-beginners-guide/)
 
-## Finally something useful
-- https://console.hivemq.cloud/clients/arduino-esp8266?uuid=597c9bc0b8d0400b8f723ca742f37e73
-### tis might help
-- https://community.hivemq.com/t/arduino-example-with-server-signed-certificate/502
+## Useful Resources
+Here are some helpful resources related to the project:
 
-## MQTT help suggested by Wong Yi Jin (Senior Alumni)
-- https://techtutorialsx.com/2017/04/24/esp32-publishing-messages-to-mqtt-topic/
-- https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/
+- MQTT Connection Example with Arduino and Server-Signed Certificate:
+  - [Arduino Example with Server-Signed Certificate](https://community.hivemq.com/t/arduino-example-with-server-signed-certificate/502)
 
-## Currently facing these problems:
+- MQTT Help (suggested by Wong Yi Jin, Senior Alumni):
+  - [ESP32 Publishing Messages to MQTT Topic](https://techtutorialsx.com/2017/04/24/esp32-publishing-messages-to-mqtt-topic/)
+  - [ESP32 MQTT Publish/Subscribe with Arduino IDE](https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/)
+
+## Current Challenges
+The project currently faces the following challenges:
 - Laziness
-- Mozila certs not generating
 - Lack of motivation
 - Skill issue
-- MQTT is not connecting with error code                   rc=-4
 
-## Currently working on
-- MQTT on ESP8266(s)
-- Dot matrix showing randomized alphabet
-- 2 buttons represent "W" and "M" 
-- Designing a schematic, PCB and case for it
+## Work in Progress
+The team is currently working on the following tasks:
+- Implementing MQTT on ESP8266 microcontrollers
+- Displaying a randomized alphabet on a dot matrix
+- Integrating two buttons representing "W" and "M"
+- Designing a schematic, PCB, and case for the project
 
-## Planned
-- Connecting 4 ESP8266 with MQTT
-- Combine the buttons and dot matrix to create a game
+## Planned Features
+The following features are planned for future development:
+- Connecting four ESP8266 microcontrollers using MQTT
+- Combining the buttons and dot matrix to create a game
 
-#### Source of ESP Library 
-- https://github.com/esp8266/Arduino
+## Additional Resources
 
-#### ESP board 
-- https://arduino.esp8266.com/stable/package_esp8266com_index.json
+- Source of ESP Library:
+  - [ESP Library on GitHub](https://github.com/esp8266/Arduino)
 
-#### MQTT client library for ESP8266: 
-- https://github.com/knolleary/pubsubclient
+- ESP Board:
+  - [ESP8266 Board Package URL](https://arduino.esp8266.com/stable/package_esp8266com_index.json)
 
-#### Getting started with MQTT and ESP8266: 
-- https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/
+- MQTT Client Library for ESP8266:
+  - [PubSubClient Library on GitHub](https://github.com/knolleary/pubsubclient)
+
+- Getting Started with MQTT and ESP8266:
+  - [What is MQTT and How Does It Work?](https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/)
