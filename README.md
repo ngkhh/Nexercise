@@ -1,7 +1,7 @@
 # Nexercise
 
 ### Google drive link
-[Click Here](https://drive.google.com/drive/folders/17Xb0VvSZStTZf7wnS8am0EcS6U0mjgPa)
+- [Click Here](https://drive.google.com/drive/folders/17Xb0VvSZStTZf7wnS8am0EcS6U0mjgPa)
 
 ##### Docs mission
 - Complete BOM
