@@ -18,10 +18,10 @@ const char* password = "your_wifi_password";
 
 // MQTT Broker
 const char* mqtt_server = "597c9bc0b8d0400b8f723ca742f37e73.s2.eu.hivemq.cloud";
-const char* mqtt_username = "testing";
-const char* mqtt_password = "Taneelim2019";
+const char* mqtt_username = "hivemq.webclient.1685159104447";
+const char* mqtt_password = "8U:B<p>@3mnI7Af2QLot";
 const char* mqtt_topic = "testing";
-const int mqttPort = 8883;
+const int mqttPort = 1884;
 
 // A single, global CertStore which can be used by all connections.
 // Needs to stay live the entire time any of the WiFiClientBearSSLs
@@ -62,7 +62,7 @@ void setup_wifi() {
 void setDateTime() {
   // You can use your own timezone, but the exact time is not used at all.
   // Only the date is needed for validating the certificates.
-  configTime(TZ_Europe_Berlin, "pool.ntp.org", "time.nist.gov");
+  configTime(TZ_Asia_Kuching, "pool.ntp.org", "time.nist.gov");
 
   Serial.print("Waiting for NTP time sync: ");
   time_t now = time(nullptr);
@@ -105,15 +105,15 @@ void reconnect() {
   // Loop until we’re reconnected
   while (!client->connected()) {
     Serial.print("Attempting MQTT connection…");
-    String clientId = "ESP8266Client - MyClient";
+    String clientId = "ESP8266Clien34t - MyClient";
     // Attempt to connect
     // Insert your password
-    if (client->connect(clientId.c_str(), "testing", "YOUR_PASSWORD")) {
+    if (client->connect(clientId.c_str(), "hivemq.webclient.1685159104447", "8U:B<p>@3mnI7Af2QLot")) {
       Serial.println("connected");
       // Once connected, publish an announcement…
-      client->publish("testTopic", "hello world");
+      client->publish("testing", "hello world");
       // … and resubscribe
-      client->subscribe("testTopic");
+      client->subscribe("testing");
     } else {
       Serial.print("failed, rc = ");
       Serial.print(client->state());
@@ -170,7 +170,7 @@ void loop() {
     snprintf (msg, MSG_BUFFER_SIZE, "hello world #%ld", value);
     Serial.print("Publish message: ");
     Serial.println(msg);
-    client->publish("testTopic", msg);
+    client->publish("testing", msg);
   }
   delay(1000);
 } 
