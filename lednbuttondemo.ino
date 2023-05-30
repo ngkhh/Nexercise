@@ -3,9 +3,9 @@
 
 // MQTT broker settings
 const char* mqttServer = "597c9bc0b8d0400b8f723ca742f37e73.s2.eu.hivemq.cloud";
-const int mqttPort = 8883;
-const char* mqttUser = "testing";
-const char* mqttPassword = "Taneelim2019";
+const int mqttPort = 8884;
+const char* mqttUser = "hivemq.webclient.1685159104447";
+const char* mqttPassword = "8U:B<p>@3mnI7Af2QLot";
 const char* ledTopic = "testing";
 
 // WiFi settings
