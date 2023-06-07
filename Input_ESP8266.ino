@@ -1,20 +1,20 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-const char* ssid = "YourWiFiSSID";
-const char* password = "YourWiFiPassword";
+const char* ssid = "your_wifi_ssid";
+const char* password = "your_wifi_password";
 
-const char* mqttServer = "MQTTServerIPAddress";
+const char* mqttServer = "597c9bc0b8d0400b8f723ca742f37e73.s2.eu.hivemq.cloud";
 const int mqttPort = 1883;
-const char* mqttUser = "MQTTUsername";
-const char* mqttPassword = "MQTTPassword";
+const char* mqttUser = "hivemq.webclient.1685159104447";
+const char* mqttPassword = "8U:B<p>@3mnI7Af2QLot";
 const char* mqttTopic = "led/control";
 
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
 
-const int onButtonPin = D2;  // GPIO pin for "ON" button
-const int offButtonPin = D3; // GPIO pin for "OFF" button
+const int onButtonPin = 4;  // GPIO pin for "ON" button
+const int offButtonPin = 15; // GPIO pin for "OFF" button
 
 void setup() {
   pinMode(onButtonPin, INPUT_PULLUP);
