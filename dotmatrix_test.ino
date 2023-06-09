@@ -17,6 +17,7 @@ void setup() {
   lc.setIntensity(0,8);
   lc.clearDisplay(0);
   pinMode(B1,INPUT_PULLUP);
+  pinMode(B2,INPUT_PULLUP);
 }
 
 void displayW() {
@@ -29,6 +30,7 @@ void displayW() {
   lc.setRow(0,5,W[5]);
   lc.setRow(0,6,W[6]);
   lc.setRow(0,7,W[7]);
+  delay(10);
 }
 void displayM() {
   byte M[8]={0x82,0xC6,0xAA,0x92,0x92,0x82,0x82,0x82};
@@ -40,9 +42,12 @@ void displayM() {
   lc.setRow(0,5,M[5]);
   lc.setRow(0,6,M[6]);
   lc.setRow(0,7,M[7]);
+  delay(10);
 }
 void loop() {
   int b1State = digitalRead(B1);
-  Serial.println(b1State);
-  delay(1000);
+  if( b1State = 0) {
+    displayW();
+  }
+  delay(100);
 }
