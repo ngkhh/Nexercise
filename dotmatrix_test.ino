@@ -1,6 +1,5 @@
 #include "LedControl.h"
 
-
 // pin 12 (D6) is connected to the DataIn 
 // pin 15 (D7) is connected to the CS
 // pin 13 (D8) is connected to CLK
