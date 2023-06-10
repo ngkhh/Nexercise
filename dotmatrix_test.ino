@@ -11,6 +11,8 @@ LedControl lc=LedControl(12,15,13,1);
 
 unsigned long delaytime=1000;
 
+int rnd;
+
 void setup() {
   Serial.begin(9600);
   lc.shutdown(0,false);
@@ -18,6 +20,7 @@ void setup() {
   lc.clearDisplay(0);
   pinMode(B1,INPUT_PULLUP);
   pinMode(B2,INPUT_PULLUP);
+  randomSeed(analogRead(0));
 }
 
 void displayW() {
@@ -46,8 +49,15 @@ void displayM() {
 }
 void loop() {
   int b1State = digitalRead(B1);
-  if( b1State = 0) {
+  int b2State = digitalRead(B2);
+  rnd = random(0,2);
+  Serial.println(rnd);
+  if (rnd == 0){
+    displayM();
+    while(b1State != LOW) { } // do nothing
+  }
+  if (rnd == 1){
     displayW();
   }
-  delay(100);
-}
+  delay(1000);
+  }
