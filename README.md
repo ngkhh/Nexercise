@@ -5,12 +5,48 @@ This is the README file for the Nexercise GitHub project. Nexercise is a project
 ## Google Drive Link
 - [Click Here](https://drive.google.com/drive/folders/17Xb0VvSZStTZf7wnS8am0EcS6U0mjgPa)
 
-## Todo
+## Important, Urgent
+- [one link explains all](https://randomnerdtutorials.com/esp-now-two-way-communication-esp8266-nodemcu/)
+
+## Todo 
 The main goals of the project are as follows:
-- Complete Bill of Materials (BOM)
-- Improve the project's PowerPoint presentation
-- Start writing the script for the project
-- Prepare for a comprehensive presentation
+- Complete Bill of Materials (BOM) (✔️)
+- Improve the project's PowerPoint presentation (❌)
+- Start writing the script for the project (ChatGPT)
+- Prepare for a comprehensive presentation (Rewrite ChatGPT script, and improve better)
+
+## Current Challenges
+The project currently faces the following challenges:
+- ~Laziness~
+- ~Lack of motivation~
+- Skill issue (✔️)
+
+## Work in Progress
+The team is currently working on the following tasks:
+- ~Implementing MQTT on ESP8266 microcontrollers~
+- Displaying a randomized alphabet on a dot matrix
+- Integrating two buttons representing "W" and "M"
+- Designing a schematic, PCB, and case for the project (✔️)
+
+## Planned Features
+The following features are planned for future development:
+- ~Connecting four ESP8266 microcontrollers using MQTT~ (Not important + Not urgent)
+- Combining the buttons and dot matrix to create a game
+
+## Additional Resources
+
+- Source of ESP Library:
+  - [ESP Library on GitHub](https://github.com/esp8266/Arduino)
+
+- ESP Board:
+  - [ESP8266 Board Package URL](https://arduino.esp8266.com/stable/package_esp8266com_index.json)
+ 
+## Not Important, Not Urgent Stuff
+- MQTT Client Library for ESP8266:
+  - [PubSubClient Library on GitHub](https://github.com/knolleary/pubsubclient)
+
+- Getting Started with MQTT and ESP8266:
+  - [What is MQTT and How Does It Work?](https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/)
 
 ## MQTT Connection Guide
 For a beginner's guide on MQTT connection, please refer to the following link:
@@ -26,34 +62,3 @@ Here are some helpful resources related to the project:
   - [ESP32 Publishing Messages to MQTT Topic](https://techtutorialsx.com/2017/04/24/esp32-publishing-messages-to-mqtt-topic/)
   - [ESP32 MQTT Publish/Subscribe with Arduino IDE](https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/)
 
-## Current Challenges
-The project currently faces the following challenges:
-- Laziness
-- Lack of motivation
-- Skill issue
-
-## Work in Progress
-The team is currently working on the following tasks:
-- Implementing MQTT on ESP8266 microcontrollers
-- Displaying a randomized alphabet on a dot matrix
-- Integrating two buttons representing "W" and "M"
-- Designing a schematic, PCB, and case for the project
-
-## Planned Features
-The following features are planned for future development:
-- Connecting four ESP8266 microcontrollers using MQTT
-- Combining the buttons and dot matrix to create a game
-
-## Additional Resources
-
-- Source of ESP Library:
-  - [ESP Library on GitHub](https://github.com/esp8266/Arduino)
-
-- ESP Board:
-  - [ESP8266 Board Package URL](https://arduino.esp8266.com/stable/package_esp8266com_index.json)
-
-- MQTT Client Library for ESP8266:
-  - [PubSubClient Library on GitHub](https://github.com/knolleary/pubsubclient)
-
-- Getting Started with MQTT and ESP8266:
-  - [What is MQTT and How Does It Work?](https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/)
