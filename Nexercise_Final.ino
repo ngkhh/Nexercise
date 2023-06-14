@@ -21,9 +21,11 @@ const char* ssid = "your_wifi_ssid";
 const char* password = "your_wifi_password";
 
 // MQTT Broker
-const char* mqtt_broker = "broker.emqx.io";
+const char *mqtt_broker = "broker.emqx.io";
+const char *topic = "nexercise/project";
+const char *mqtt_username = "emqx";
+const char *mqtt_password = "public";
 const int mqtt_port = 1883;
-const char* mqtt_topic = "nexercise/game";
 
 // Firebase
 const char* firebase_host = "your_firebase_project.firebaseio.com";
