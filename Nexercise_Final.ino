@@ -1,10 +1,20 @@
-// still under development not ready to imply
+// idk why firebase library need so many stuff wan
+#include <FB_Const.h>
+#include <FB_Error.h>
+#include <FB_Network.h>
+#include <FB_Utils.h>
+#include <Firebase.h>
+#include <FirebaseFS.h>
+#include <Firebase_Client_Version.h>
+#include <Firebase_ESP_Client.h>
+#include <MB_NTP.h>
+
+// Library
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <MD_Parola.h>
 #include <MD_MAX72xx.h>
 #include <SPI.h>
-#include <FirebaseArduino.h>
 
 // Dot Matrix Pins
 #define MAX_DEVICES 4  // Number of MAX7219 modules
