@@ -28,8 +28,8 @@ const char *mqtt_password = "public";
 const int mqtt_port = 1883;
 
 // Firebase
-const char* firebase_host = "your_firebase_project.firebaseio.com";
-const char* firebase_auth = "your_firebase_auth";
+const char* firebase_host = "nexercise-69420.firebaseapp.com";
+const char* firebase_auth = "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4";
 
 WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
