@@ -12,7 +12,9 @@ const char* firebaseHost = "your-firebase-host.firebaseio.com";
 const char* firebaseAuth = "your-firebase-authentication";
 
 // MQTT configuration
-const char* mqttBroker = "your-mqtt-broker";
+const char *mqtt_broker = "broker.emqx.io";
+const char *mqtt_username = "emqx";
+const char *mqtt_password = "public";
 const int mqttPort = 1883;
 const char* mqttTopic = "nexercise/control";
 
