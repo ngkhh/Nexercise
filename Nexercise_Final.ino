@@ -1,4 +1,3 @@
-// idk why firebase library need so many stuff wan
 #include <FB_Const.h>
 #include <FB_Error.h>
 #include <FB_Network.h>
@@ -9,7 +8,7 @@
 #include <Firebase_ESP_Client.h>
 #include <MB_NTP.h>
 
-// Library
+// still under development not ready to imply
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <MD_Parola.h>
@@ -32,7 +31,7 @@ const char* password = "your_wifi_password";
 
 // MQTT Broker
 const char *mqtt_broker = "broker.emqx.io";
-const char *topic = "nexercise/project";
+const char *mqtt_topic = "nexercise/project";
 const char *mqtt_username = "emqx";
 const char *mqtt_password = "public";
 const int mqtt_port = 1883;
