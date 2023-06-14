@@ -1,14 +1,3 @@
-#include <FB_Const.h>
-#include <FB_Error.h>
-#include <FB_Network.h>
-#include <FB_Utils.h>
-#include <Firebase.h>
-#include <FirebaseFS.h>
-#include <Firebase_Client_Version.h>
-#include <Firebase_ESP_Client.h>
-#include <MB_NTP.h>
-
-// still under development not ready to imply
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <MD_Parola.h>
@@ -31,20 +20,16 @@ const char* password = "your_wifi_password";
 
 // MQTT Broker
 const char *mqtt_broker = "broker.emqx.io";
-const char *mqtt_topic = "nexercise/project";
+const char *topic = "nexercise/project";
 const char *mqtt_username = "emqx";
 const char *mqtt_password = "public";
 const int mqtt_port = 1883;
-
-// Firebase
-const char* firebase_host = "nexercise-69420.firebaseapp.com";
-const char* firebase_auth = "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4";
 
 WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
 
 // Dot Matrix
-MD_Parola dotMatrix = MD_Parola(MAX_DEVICES, DATA_PIN, CLK_PIN, CS_PIN, MD_MAX72XX::FC16_HW);
+MD_Parola dotMatrix = MD_Parola(MD_MAX72XX::FC16_HW, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 
 // Game Variables
 const int maxRounds = 10;
@@ -52,9 +37,6 @@ int currentRound = 0;
 bool gameActive = false;
 bool restartRequested = false;
 char currentLetter;
-
-// Firebase Path
-String firebasePath;
 
 void setupWiFi() {
   Serial.println();
@@ -91,7 +73,7 @@ void connectToMQTT() {
 
   while (!mqttClient.connected()) {
     if (mqttClient.connect("ESP8266Client")) {
-      mqttClient.subscribe(mqtt_topic);
+      mqttClient.subscribe(topic);
       Serial.println("Connected to MQTT Broker");
     } else {
       Serial.print("Failed to connect to MQTT Broker. MQTT Error code: ");
@@ -113,7 +95,7 @@ void startGame() {
   restartRequested = false;
   
   // Publish the start of the game to MQTT topic
-  mqttClient.publish(mqtt_topic, "start");
+  mqttClient.publish(topic, "start");
 
   // Update the dot matrix with the initial round
   updateDotMatrix("Round 1: W");
@@ -124,84 +106,108 @@ void endGame() {
   restartRequested = false;
 
   // Publish the end of the game to MQTT topic
-  mqttClient.publish(mqtt_topic, "end");
+  mqttClient.publish(topic, "end");
+  
+// Update the dot matrix with the end message
+  updateDotMatrix("Game Over!");
 
-  // Clear the dot matrix display
+  // Delay for a few seconds before clearing the dot matrix
+  delay(5000);
   dotMatrix.displayClear();
 }
 
+void restartGame() {
+  currentRound = 0;
+  gameActive = true;
+  restartRequested = false;
+
+  // Publish the restart of the game to MQTT topic
+  mqttClient.publish(topic, "restart");
+
+  // Update the dot matrix with the initial round
+  updateDotMatrix("Round 1: W");
+}
+
 void handleButtonPress(int buttonPin) {
-  if (buttonPin == BUTTON_W && currentLetter == 'W') {
-    // Correct button press for letter W
-    currentRound++;
-    if (currentRound < maxRounds) {
-      char roundText[10];
-      sprintf(roundText, "Round %d: W", currentRound + 1);
-      updateDotMatrix(roundText);
+  if (buttonPin == BUTTON_W && gameActive && !restartRequested) {
+    // Process button press for the 'W' button
+    // Here, you can implement the logic for handling the button press for the 'W' button
+    // For example, you can check if the pressed letter matches the expected letter
+    // and update the round and dot matrix accordingly
+    // You can also handle the end of the game or request for restart if needed
+    if (currentLetter == 'W') {
+      currentRound++;
+      if (currentRound <= maxRounds) {
+        // Generate the next letter and update the dot matrix
+        currentLetter = generateRandomLetter();
+        char roundText[10];
+        sprintf(roundText, "Round %d: %c", currentRound, currentLetter);
+        updateDotMatrix(roundText);
+      } else {
+        // End the game if the maximum number of rounds is reached
+        endGame();
+      }
     } else {
-      // All rounds completed, end the game
+      // Handle incorrect button press for the 'W' button
+      // For example, display an error message on the dot matrix
+      updateDotMatrix("Wrong button!");
+      // You can also implement additional logic, such as deducting points or ending the game
+    }
+  } else if (buttonPin == BUTTON_M && gameActive) {
+    // Process button press for the 'M' button
+    // Here, you can implement the logic for handling the button press for the 'M' button
+    // For example, you can handle the request for restart or end the game if needed
+    if (restartRequested) {
+      // Restart the game if restart is requested
+      restartGame();
+    } else {
+      // End the game if the 'M' button is pressed
       endGame();
     }
-  } else if (buttonPin == BUTTON_M && currentLetter == 'M') {
-    // Correct button press for letter M
-    currentRound++;
-    if (currentRound < maxRounds) {
-      char roundText[10];
-      sprintf(roundText, "Round %d: M", currentRound + 1);
-      updateDotMatrix(roundText);
-    } else {
-      // All rounds completed, end the game
-      endGame();
-    }
-  } else {
-    // Incorrect button press, request restart
-    restartRequested = true;
-    updateDotMatrix("Wrong! Restarting...");
   }
 }
 
 void setup() {
   Serial.begin(115200);
 
+  // Setup WiFi connection
   setupWiFi();
+
+  // Setup dot matrix display
   setupDotMatrix();
 
-  // Initialize MQTT and connect to the broker
+  // Connect to MQTT broker
   connectToMQTT();
 
-  // Set up button inputs
+  // Setup button pins
   pinMode(BUTTON_W, INPUT_PULLUP);
   pinMode(BUTTON_M, INPUT_PULLUP);
 
-  // Set the initial dot matrix display
-  updateDotMatrix("Press Start");
-
-  // Firebase Initialization
-  Firebase.begin(firebase_host, firebase_auth);
-  Firebase.reconnectWiFi(true);
+  // Attach interrupts for button pins
+  attachInterrupt(digitalPinToInterrupt(BUTTON_W), []() {
+    handleButtonPress(BUTTON_W);
+  }, FALLING);
+  attachInterrupt(digitalPinToInterrupt(BUTTON_M), []() {
+    handleButtonPress(BUTTON_M);
+  }, FALLING);
 }
 
 void loop() {
-  // Handle MQTT connection and incoming messages
+  // Reconnect to MQTT if connection lost
   if (!mqttClient.connected()) {
     connectToMQTT();
   }
+
+  // Process MQTT messages
   mqttClient.loop();
 
-  // Check for button presses
-  if (gameActive) {
-    if (digitalRead(BUTTON_W) == LOW) {
-      handleButtonPress(BUTTON_W);
-      delay(200); // Debounce delay
-    }
-    if (digitalRead(BUTTON_M) == LOW) {
-      handleButtonPress(BUTTON_M);
-      delay(200); // Debounce delay
-    }
+  // Handle restart request
+  if (restartRequested) {
+    restartGame();
   }
 
-  // Check if restart is requested
-  if (restartRequested) {
-    startGame();
+  // Handle game end
+  if (currentRound >= maxRounds) {
+    endGame();
   }
 }
