@@ -85,7 +85,9 @@ void connectToMQTT() {
       mqttClient.subscribe(mqtt_topic);
       Serial.println("Connected to MQTT Broker");
     } else {
-      Serial.print("Failed to connect to MQTT Broker, retrying in 5 seconds...");
+      Serial.print("Failed to connect to MQTT Broker. MQTT Error code: ");
+      Serial.print(mqttClient.state());
+      Serial.println(". Retrying in 5 seconds...");
       delay(5000);
     }
   }
