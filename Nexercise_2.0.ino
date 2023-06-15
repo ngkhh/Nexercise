@@ -7,20 +7,20 @@
 FirebaseData fbdo;
 
 // Constants for Wi-Fi connection
-const char* ssid = "YourWiFiSSID";
-const char* password = "YourWiFiPassword";
+const char* ssid = "your_wifi_ssid";
+const char* password = "your_wifi_password";
 
 // Firebase configuration
 const char* firebaseHost = "nexercise-69420.firebaseapp.com";
 const char* firebaseAuth = "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4";
 
 // MQTT configuration
-const char* mqttBroker = "your-mqtt-broker";
+const char* mqttBroker = "broker.emqx.io";
 const int mqttPort = 1883;
-const char* mqttClientId = "your-mqtt-client-id";
-const char* mqttUsername = "your-mqtt-username";
-const char* mqttPassword = "your-mqtt-password";
-const char* mqttTopic = "your-mqtt-topic";
+const char* mqttClientId = "mqttx_22b19574";
+const char* mqttUsername = "emqx";
+const char* mqttPassword = "public";
+const char* mqttTopic = "nexercise/project";
 
 // Pins for dot matrix displays
 const int dataPin = D5;  // Example pin number, modify as per your setup
