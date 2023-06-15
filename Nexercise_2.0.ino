@@ -1,15 +1,18 @@
+#include <Firebase.h>
+#include <FirebaseESP8266.h>
 #include <ESP8266WiFi.h>
-#include <FirebaseArduino.h>
 #include <PubSubClient.h>
 #include <LedControl.h>
+
+FirebaseData fbdo;
 
 // Constants for Wi-Fi connection
 const char* ssid = "YourWiFiSSID";
 const char* password = "YourWiFiPassword";
 
 // Firebase configuration
-const char* firebaseHost = "your-firebase-host.firebaseio.com";
-const char* firebaseAuth = "your-firebase-authentication";
+const char* firebaseHost = "nexercise-69420.firebaseapp.com";
+const char* firebaseAuth = "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4";
 
 // MQTT configuration
 const char* mqttBroker = "your-mqtt-broker";
@@ -45,6 +48,11 @@ PubSubClient mqttClient(espClient);
 // LedControl library object
 LedControl lc = LedControl(dataPin, clockPin, csPin, numDisplays);
 
+void setupFirebase(){
+// Initialize Firebase
+  Firebase.begin("nexercise-69420.firebaseapp.com", "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4");
+}
+
 void setup() {
   // Initialize dot matrix displays
   lc.shutdown(0, false);   // Wake up displays
@@ -62,9 +70,6 @@ void setup() {
     Serial.println("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
-
-  // Initialize Firebase
-  Firebase.begin(firebaseHost, firebaseAuth);
 
   // Connect to MQTT broker
   mqttClient.setServer(mqttBroker, mqttPort);
@@ -145,10 +150,10 @@ void checkUserInput(char userInput) {
 void recordSessionData(char displayedAlphabet, char pressedButton) {
   // Record session data in Firebase (start time, end time, displayed alphabet, pressed button)
   unsigned long sessionEndTime = millis();
-  Firebase.pushInt("sessions/start_time", sessionStartTime);
-  Firebase.pushInt("sessions/end_time", sessionEndTime);
-  Firebase.pushString("sessions/displayed_alphabet", String(displayedAlphabet));
-  Firebase.pushString("sessions/pressed_button", String(pressedButton));
+  Firebase.pushInt(fbdo, "sessions/start_time", sessionStartTime);
+  Firebase.pushInt(fbdo, "sessions/end_time", sessionEndTime);
+  Firebase.pushString(fbdo, "sessions/displayed_alphabet", String(displayedAlphabet));
+  Firebase.pushString(fbdo, "sessions/pressed_button", String(pressedButton));
 }
 
 void displayAlphabet(char alphabet, int displayIndex) {
