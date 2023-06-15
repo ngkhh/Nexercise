@@ -12,23 +12,25 @@ const char* firebaseHost = "your-firebase-host.firebaseio.com";
 const char* firebaseAuth = "your-firebase-authentication";
 
 // MQTT configuration
-const char *mqtt_broker = "broker.emqx.io";
-const char *mqtt_username = "emqx";
-const char *mqtt_password = "public";
+const char* mqttBroker = "your-mqtt-broker";
 const int mqttPort = 1883;
-const char* mqttTopic = "nexercise/control";
+const char* mqttClientId = "your-mqtt-client-id";
+const char* mqttUsername = "your-mqtt-username";
+const char* mqttPassword = "your-mqtt-password";
+const char* mqttTopic = "your-mqtt-topic";
 
 // Pins for dot matrix displays
-const int numDisplays = 4;
-const int displayDataPin = 2;
-const int displayClockPin = 3;
-const int displayLatchPin = 4;
+const int dataPin = D5;  // Example pin number, modify as per your setup
+const int clockPin = D6; // Example pin number, modify as per your setup
+const int csPin = D7;    // Example pin number, modify as per your setup
 
 // Pins for controller buttons
-const int buttonWPIN = 6;  // Example pin number, modify as per your setup
-const int buttonMPIN = 7;  // Example pin number, modify as per your setup
+const int buttonWPIN = D1; // Example pin number, modify as per your setup
+const int buttonMPIN = D2; // Example pin number, modify as per your setup
 
 // Game variables
+const int numDisplays = 4;
+const int numRounds = 10;
 char alphabet;
 int currentDisplay;
 int roundCount;
@@ -36,18 +38,18 @@ int roundCount;
 // Firebase variables
 unsigned long sessionStartTime;
 
-// MQTT variables
-WiFiClient wifiClient;
-PubSubClient mqttClient(wifiClient);
+// MQTT client
+WiFiClient espClient;
+PubSubClient mqttClient(espClient);
 
-// LedControl object for dot matrix displays
-LedControl lc = LedControl(displayDataPin, displayClockPin, displayLatchPin, numDisplays);
+// LedControl library object
+LedControl lc = LedControl(dataPin, clockPin, csPin, numDisplays);
 
 void setup() {
   // Initialize dot matrix displays
-  lc.shutdown(0, false);
-  lc.setIntensity(0, 8);
-  lc.clearDisplay(0);
+  lc.shutdown(0, false);   // Wake up displays
+  lc.setIntensity(0, 8);   // Set brightness (0-15)
+  lc.clearDisplay(0);      // Clear displays
 
   // Initialize controller buttons
   pinMode(buttonWPIN, INPUT_PULLUP);
@@ -64,12 +66,10 @@ void setup() {
   // Initialize Firebase
   Firebase.begin(firebaseHost, firebaseAuth);
 
-  // Initialize MQTT
+  // Connect to MQTT broker
   mqttClient.setServer(mqttBroker, mqttPort);
   mqttClient.setCallback(mqttCallback);
-
-  // Connect to MQTT broker
-  connectToMqttBroker();
+  connectToMqtt();
 
   // Start a new session
   startNewSession();
@@ -88,10 +88,7 @@ void loop() {
     playBuzzerSound();
   }
 
-  // Maintain MQTT connection
-  if (!mqttClient.connected()) {
-    reconnectToMqttBroker();
-  }
+  // Handle MQTT messages
   mqttClient.loop();
 }
 
@@ -105,65 +102,80 @@ void startNewSession() {
 
 void playNextRound() {
   roundCount++;
+  if (roundCount > numRounds) {
+    Serial.println("Game completed! Starting a new session");
+    recordSessionData('-', '-'); // Record session data for completed game
+    startNewSession();
+    return;
+  }
+
+  alphabet = randomAlphabet();
+  currentDisplay = randomDisplay();
+  displayAlphabet(alphabet, currentDisplay);
+
   Serial.print("Round ");
-  Serial.println(roundCount);
+  Serial.print(roundCount);
+  Serial.print(" - Display: ");
+  Serial.print(currentDisplay);
+  Serial.print(" | Alphabet: ");
+  Serial.println(alphabet);
+}
 
-  // Randomly select a dot matrix display
-  currentDisplay = random(numDisplays);
+char randomAlphabet() {
+  char alphabets[] = {'M', 'W'};
+  int index = random(0, 2);
+  return alphabets[index];
+}
 
-  // Generate a random alphabet ('M' or 'W')
-  alphabet = random(2) == 0 ? 'M' : 'W';
-
-  // Turn on the selected dot matrix display and show the alphabet
-  lc.clearDisplay(0);
-  lc.setChar(0, currentDisplay, alphabet);
-
-  // Publish the alphabet to the MQTT topic
-  mqttClient.publish(mqttTopic, String(alphabet).c_str());
-
-  Serial.print("Displaying ");
-  Serial.print(alphabet);
-  Serial.print(" on display ");
-  Serial.println(currentDisplay);
+int randomDisplay() {
+  return random(0, numDisplays);
 }
 
 void checkUserInput(char userInput) {
   if (userInput == alphabet) {
-    // Correct input, move to the next round
+    Serial.println("Correct!");
     playNextRound();
   } else {
-    // Incorrect input, restart the game
-    Serial.println("Incorrect input. Restarting game...");
-    logSessionData();
+    Serial.println("Wrong! Restarting the game...");
+    recordSessionData(alphabet, userInput);
     startNewSession();
   }
 }
 
-void logSessionData() {
-  // Log session data to Firebase (start time, end time, displayed alphabet, pressed button)
+void recordSessionData(char displayedAlphabet, char pressedButton) {
+  // Record session data in Firebase (start time, end time, displayed alphabet, pressed button)
   unsigned long sessionEndTime = millis();
   Firebase.pushInt("sessions/start_time", sessionStartTime);
   Firebase.pushInt("sessions/end_time", sessionEndTime);
-  Firebase.pushString("sessions/displayed_alphabet", String(alphabet));
-  Firebase.pushString("sessions/pressed_button", String(alphabet));
+  Firebase.pushString("sessions/displayed_alphabet", String(displayedAlphabet));
+  Firebase.pushString("sessions/pressed_button", String(pressedButton));
 }
 
-void displayAlphabet(char alphabet) {
-  // Code for displaying the alphabet on the dot matrix display
-  lc.setChar(0, currentDisplay, alphabet);
+void displayAlphabet(char alphabet, int displayIndex) {
+  lc.clearDisplay(0); // Clear all displays
+  lc.setChar(0, displayIndex, alphabet, false); // Display the alphabet on the selected display
 }
 
 void playBuzzerSound() {
-  // Code for playing the buzzer sound to remind the user
-  // Modify this function based on your buzzer library and hardware
-  Serial.println("Playing buzzer sound");
+  // Example implementation for playing the buzzer sound
+  // Modify this function based on your specific buzzer library and hardware
+  // Add code here to generate the buzzer sound
+
+  // Assuming you are using a buzzer connected to pin D8
+  const int buzzerPin = D8;
+  
+  // Play the buzzer sound for 1 second
+  digitalWrite(buzzerPin, HIGH);
+  delay(1000);
+  digitalWrite(buzzerPin, LOW);
 }
 
-void connectToMqttBroker() {
+void connectToMqtt() {
+  // Connect to MQTT broker
   while (!mqttClient.connected()) {
-    Serial.println("Connecting to MQTT broker...");
-    if (mqttClient.connect("NexerciseClient")) {
-      Serial.println("Connected to MQTT broker");
+    Serial.println("Connecting to MQTT...");
+    if (mqttClient.connect(mqttClientId, mqttUsername, mqttPassword)) {
+      Serial.println("Connected to MQTT");
       mqttClient.subscribe(mqttTopic);
     } else {
       delay(1000);
@@ -171,18 +183,21 @@ void connectToMqttBroker() {
   }
 }
 
-void reconnectToMqttBroker() {
-  while (!mqttClient.connected()) {
-    Serial.println("Reconnecting to MQTT broker...");
-    if (mqttClient.connect("NexerciseClient")) {
-      Serial.println("Reconnected to MQTT broker");
-      mqttClient.subscribe(mqttTopic);
-    } else {
-      delay(1000);
-    }
-  }
+void publishMqttMessage(String message) {
+  // Publish the MQTT message
+  mqttClient.publish(mqttTopic, message.c_str());
 }
 
 void mqttCallback(char* topic, byte* payload, unsigned int length) {
-  // Handle incoming MQTT messages (if needed)
+  // Handle incoming MQTT messages here
+  // Modify this function based on your MQTT message handling logic
+  // Add code here to handle the received message
+
+  Serial.print("Received MQTT message on topic: ");
+  Serial.println(topic);
+  Serial.print("Message payload: ");
+  for (unsigned int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
 }
