@@ -2,7 +2,7 @@
 
 #define B1 5 /*(D1) Button 1 */
 #define B2 4 /*(D2) Button 2 */
-#define buzzer 0
+#define buzzer 16
 
 LedControl lc = LedControl(12, 15, 13, 1);
 
@@ -104,9 +104,7 @@ void game() {
 void loop() {
   timer++;
   if (timer == 10){
-    tone(buzzer, 1000);
-    delay(2000);
-    noTone(buzzer);
+  tone(buzzer, 780, 2000); // Send 1KHz sound signal...
     while(rounds !=9){
     game();
     rounds++;
