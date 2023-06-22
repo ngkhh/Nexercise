@@ -2,6 +2,7 @@
 
 #define B1 5 /*(D1) Button 1 */
 #define B2 4 /*(D2) Button 2 */
+#define buzzer 0
 
 LedControl lc = LedControl(12, 15, 13, 1);
 
@@ -9,9 +10,10 @@ unsigned long delaytime = 1000;
 
 int rnd;
 int roud;
+int rounds;
 int score;
-int antibias;
 int abrand;
+int timer;
 
 void setup() {
   Serial.begin(9600);
@@ -21,6 +23,7 @@ void setup() {
   pinMode(B1, INPUT_PULLUP);
   pinMode(B2, INPUT_PULLUP);
   randomSeed(analogRead(0));
+  pinMode(buzzer, OUTPUT);
 }
 
 void displayW() {
@@ -49,8 +52,8 @@ void displayM() {
   delay(10);
 }
 
-void loop() {
-  int b1State = digitalRead(B1);
+void game() {
+    int b1State = digitalRead(B1);
   int b2State = digitalRead(B2);
   rnd = random(0, 2);
   Serial.println(rnd);
@@ -96,5 +99,22 @@ void loop() {
     b1State = digitalRead(B1);
     b2State = digitalRead(B2);
     delay(10);
+  }
+}
+void loop() {
+  timer++;
+  if (timer == 10){
+    tone(buzzer, 1000);
+    delay(2000);
+    noTone(buzzer);
+    while(rounds !=9){
+    game();
+    rounds++;
+    }
+    timer = 0;
+    rounds = 0;
+    lc.clearDisplay(0);
+  } else {
+    delay(1000);
   }
   }
