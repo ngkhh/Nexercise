@@ -1,3 +1,4 @@
+#include <Firebase.h>
 #include <FirebaseESP8266.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
