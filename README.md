@@ -31,7 +31,3 @@ i touched :)
 
 ### Getting started with MQTT and ESP8266: 
 - https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/
-
-### Connecting ESP8266 to MQTT broker with TLS/SSL encryption: 
-- https://diyprojects.io/connect-esp8266-mqtt-broker-tls-ssl-lets-encrypt/#.YHwv8-gzY2w
-
