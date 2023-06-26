@@ -20,13 +20,11 @@ i touched :)
 - https://randomnerdtutorials.com/esp8266-nodemcu-client-server-wi-fi/
 
 ## Currently facing these problems (physically)
-- Exam till 15th May 2023
-- Laziness of reading docs
-- Tired scam websites
+- running out of time
 
 ## Currently facing these problems:
-- Fxxked up with MQTT stuff
-- Fxxked up with SSL Certificate (i have no idea what are those)
+- Wenlong ideas too much can't handle
+- skill issue
 
 ### MQTT client library for ESP8266: 
 - https://github.com/knolleary/pubsubclient
