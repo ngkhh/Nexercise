@@ -6,8 +6,6 @@
 
 LedControl lc = LedControl(12, 15, 13, 1);
 
-unsigned long delaytime = 1000;
-
 int rnd;
 int roud;
 int rounds;
@@ -53,7 +51,7 @@ void displayM() {
 }
 
 void game() {
-    int b1State = digitalRead(B1);
+  int b1State = digitalRead(B1);
   int b2State = digitalRead(B2);
   rnd = random(0, 2);
   Serial.println(rnd);
@@ -68,10 +66,10 @@ void game() {
     }
 
     if (b1State == LOW) {
-      Serial.println("yippie");
+      Serial.println("correctM");
       delay(50);
     } else if (b2State == LOW) {
-      Serial.println("not yippie");
+      Serial.println("wrongM");
       delay(50);
     }
   }
@@ -86,11 +84,11 @@ void game() {
     }
 
     if (b1State == LOW) {
-      Serial.println("not yippie");
+      Serial.println("wrongW");
       delay(50);
     }
     else if (b2State == LOW) {
-      Serial.println("yippie");
+      Serial.println("correctW");
       delay(50);
     }
   }
