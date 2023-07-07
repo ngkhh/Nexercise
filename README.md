@@ -47,6 +47,15 @@ The following features are planned for future development:
 
 - ESP Board:
   - [ESP8266 Board Package URL](https://arduino.esp8266.com/stable/package_esp8266com_index.json)
+  
+### Stl changelog
+- 0.1.0 First design
+- 0.2.0 Changed to hinge deisgn
+- 0.2.1 Fixed size incompatibilities
+- 0.2.2 Slightly edited positions
+- 0.2.3 Updated hinge design
+- 0.2.4 Fixed size incompatibilities (again)
+
 
 ## Not Important, Not Urgent Stuff
 - MQTT Client Library for ESP8266:
