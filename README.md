@@ -2,6 +2,8 @@
 
 This is the README file for the Nexercise GitHub project. Nexercise is a project focused on utilizing MQTT communication and ESP8266 microcontrollers to create an interactive exercise game. This document provides information on how to set up and use the project, as well as relevant links and resources.
 
+Note: there is a sub branch for the connection part of the project
+
 ## ESP8266 Mac Address (alr labled on the esps)
 - ESP #1: 0xCC, 0x50, 0xE3, 0x11, 0x48, 0x77
 - ESP #2: 0xDC, 0x4F, 0x22, 0x55, 0xD8, 0x71
