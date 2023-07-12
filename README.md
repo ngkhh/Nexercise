@@ -58,7 +58,8 @@ The following features are planned for future development:
 - 0.2.3 Updated hinge design
 - 0.2.4 Fixed size incompatibilities (again)
 - 0.2.5 Enlarged hinge and smoothed edges
-- 0.2.6 Slightly adjusted hinge gap 
+- 0.2.6 Slightly adjusted hinge gap
+- 0.2.7 Added holes for ports and updated postions (coming soon)
 
 
 ## Not Important, Not Urgent Stuff
