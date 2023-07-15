@@ -1,3 +1,4 @@
+#include <Firebase.h>
 #include <FirebaseESP8266.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
@@ -12,8 +13,7 @@ const char* password = "your_wifi_password";
 
 // Firebase configuration
 const char* firebaseHost = "nexercise-69420.firebaseapp.com";
-const char* firebaseAuth = "your_firebase_auth_token";
-const char* firebaseProjectId = "your_firebase_project_id";
+const char* firebaseAuth = "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4";
 
 // MQTT configuration
 const char* mqttBroker = "broker.emqx.io";
@@ -63,7 +63,7 @@ bool isSleepMode = false;
 
 void setupFirebase() {
   // Initialize Firebase
-  Firebase.begin(firebaseHost, firebaseAuth, firebaseProjectId);
+    Firebase.begin(firebaseHost, firebaseAuth);
 }
 
 void setup() {
