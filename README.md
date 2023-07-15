@@ -60,6 +60,7 @@ The following features are planned for future development:
 - 0.2.5 Enlarged hinge and smoothed edges
 - 0.2.6 Slightly adjusted hinge gap
 - 0.3.0 Enlarged to fit battery, added spacers and holes for screws and charging port
+- 0.3.1 Modified the screw holes to fit smaller screws
 
 
 ## Not Important, Not Urgent Stuff
