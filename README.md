@@ -14,6 +14,9 @@ Note: there is a sub branch for the connection part of the project
 ## Google Drive Link
 - [Click Here](https://drive.google.com/drive/folders/17Xb0VvSZStTZf7wnS8am0EcS6U0mjgPa)
 
+## Canva Presentation Link
+- [Click Here](https://www.canva.com/design/DAFl_ITxrQ4/Azw9BPch2I2_F4TGHnyI3A/edit?utm_content=DAFl_ITxrQ4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
 ## Important, Urgent
 - [one link explains all](https://randomnerdtutorials.com/esp-now-two-way-communication-esp8266-nodemcu/)
 
