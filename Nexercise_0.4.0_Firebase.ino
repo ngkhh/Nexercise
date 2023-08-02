@@ -23,14 +23,14 @@
 #include "addons/RTDBHelper.h"
 
 // Insert your network credentials
-#define WIFI_SSID "REPLACE_WITH_YOUR_SSID"
-#define WIFI_PASSWORD "REPLACE_WITH_YOUR_PASSWORD"
+#define WIFI_SSID "your_wifi_ssid"
+#define WIFI_PASSWORD "your_wifi_password"
 
 // Insert Firebase project API Key
-#define API_KEY "REPLACE_WITH_YOUR_FIREBASE_PROJECT_API_KEY"
+#define API_KEY "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4"
 
 // Insert RTDB URLefine the RTDB URL */
-#define DATABASE_URL "REPLACE_WITH_YOUR_FIREBASE_DATABASE_URL" 
+#define DATABASE_URL "https://nexercise-69420-default-rtdb.asia-southeast1.firebasedatabase.app/" 
 
 //Define Firebase Data object
 FirebaseData fbdo;
