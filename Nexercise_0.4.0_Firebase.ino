@@ -8,10 +8,23 @@
 #endif
 #include <Firebase_ESP_Client.h>
 
+#include <LedControl.h>
+#include <ESP8266WiFi.h>
+#include <PubSubClient.h>
+
 //Provide the token generation process info.
 #include "addons/TokenHelper.h"
 //Provide the RTDB payload printing info and other helper functions.
 #include "addons/RTDBHelper.h"
+
+// MQTT credentials
+// MQTT configuration
+#define mqttBroker = "broker.emqx.io";
+#define mqttPort = 1883;
+#define mqttClientId = "nexercise";
+#define mqttUsername = "steve";
+#define mqttPassword = "public";
+#define mqttTopic = "nexercise/project";
 
 // Insert your network credentials
 #define WIFI_SSID "your_wifi_ssid"
