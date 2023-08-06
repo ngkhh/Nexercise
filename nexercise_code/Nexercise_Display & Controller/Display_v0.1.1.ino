@@ -42,7 +42,6 @@ const unsigned long badUserRecordThreshold = 2700000; // 45 minutes (45 min * 60
 bool badUserRecordFlag = false;
 
 void setupFirebase() {
-  // Initialize Firebase
   Firebase.begin(firebaseHost, firebaseAuth);
 }
 
@@ -98,43 +97,76 @@ void handleUserInput(char userInput) {
   if (userInput == alphabet) {
     Serial.println("Correct!");
     recordUserResponse(userInput);
+    displayTick();
+    delay(1000); // Display tick for 1 second
     playNextRound();
   } else {
     Serial.println("Wrong! Restarting the game...");
     recordUserResponse(userInput);
+    displayCross();
+    delay(1000); // Display cross for 1 second
     recordBadUserRecord();
     startNewSession();
   }
 }
 
 void recordDisplayedAlphabet(char displayedAlphabet) {
-  // Record displayed alphabet in Firebase (session number, displayed alphabet)
   String path = "sessions/" + String(sessionNumber);
   Firebase.setString(fbdo, (path + "/displayed_alphabet").c_str(), String(displayedAlphabet).c_str());
 }
 
 void recordLastActivityTime() {
-  // Record last activity time in Firebase (session number, last activity time)
   String path = "sessions/" + String(sessionNumber);
   Firebase.setString(fbdo, (path + "/last_activity_time").c_str(), String(lastActivityTime).c_str());
 }
 
 void recordUserWakeTime() {
-  // Record user wake time in Firebase (session number, user wake time)
   String path = "sessions/" + String(sessionNumber);
   Firebase.setString(fbdo, (path + "/user_wake_time").c_str(), String(userWakeTime).c_str());
 }
 
 void recordBadUserRecord() {
-  // Record bad user record in Firebase (session number, bad user record timestamp)
   String path = "sessions/" + String(sessionNumber);
   unsigned long badUserRecordTime = millis();
   Firebase.setString(fbdo, (path + "/bad_user_record").c_str(), String(badUserRecordTime).c_str());
 }
 
+void displayTick() {
+  byte tickPattern[8] = {
+    B00000000,
+    B00000001,
+    B00000010,
+    B00010100,
+    B00001000,
+    B00010000,
+    B00000000,
+    B00000000
+  };
+
+  for (int i = 0; i < numDisplays; i++) {
+    lc.setRow(0, i, tickPattern[i]);
+  }
+}
+
+void displayCross() {
+  byte crossPattern[8] = {
+    B00010000,
+    B00001000,
+    B00000100,
+    B00000010,
+    B00000001,
+    B00000010,
+    B00000100,
+    B00001000
+  };
+
+  for (int i = 0; i < numDisplays; i++) {
+    lc.setRow(0, i, crossPattern[i]);
+  }
+}
+
 void playNextRound() {
   if (roundCount >= numRounds) {
-    // All rounds completed for the session
     Serial.println("Game completed! Starting a new session");
     startNewSession();
     return;
@@ -154,28 +186,58 @@ void playNextRound() {
   Serial.println(alphabet);
 }
 
-// Rest of your code...
-
-void enterSleepMode() {
-  Serial.println("Entering sleep mode");
-  
-  lc.shutdown(0, true); // Turn off displays
-  
-  delay(100); // Wait for displays to settle
-
-  // Put the ESP8266 into deep sleep mode
-  ESP.deepSleep(sleepThreshold - inactivityThreshold, WAKE_RF_DEFAULT);
+char randomAlphabet() {
+  char alphabets[] = {'M', 'W'};
+  int index = random(0, 2);
+  return alphabets[index];
 }
 
-void exitSleepMode() {
-  Serial.println("Exiting sleep mode");
+int randomDisplay() {
+  return random(0, numDisplays);
+}
 
-  lc.shutdown(0, false); // Turn on displays
-  delay(100); // Wait for displays to initialize
-  
-  // Record user wake time
-  userWakeTime = millis();
-  recordUserWakeTime();
+void displayAlphabet(char alphabet, int displayIndex) {
+  lc.clearDisplay(0); // Clear all displays
+
+  // Display the selected alphabet on the chosen display
+  if (alphabet == 'M') {
+    lc.setRow(0, displayIndex, B10000001);
+    lc.setRow(0, displayIndex + 1, B11000001);
+    lc.setRow(0, displayIndex + 2, B10100001);
+    lc.setRow(0, displayIndex + 3, B10010001);
+    lc.setRow(0, displayIndex + 4, B10000001);
+  } else if (alphabet == 'W') {
+    lc.setRow(0, displayIndex, B10000001);
+    lc.setRow(0, displayIndex + 1, B10000001);
+    lc.setRow(0, displayIndex + 2, B10101001);
+    lc.setRow(0, displayIndex + 3, B10101001);
+    lc.setRow(0, displayIndex + 4, B11000101);
+  }
+}
+
+void checkInactivity() {
+  unsigned long currentMillis = millis();
+
+  if (currentMillis - lastActivityTime >= inactivityThreshold) {
+    playBuzzerSound();
+    lastActivityTime = currentMillis;
+    recordLastActivityTime();
+  }
+
+  if (!badUserRecordFlag && currentMillis - lastActivityTime >= badUserRecordThreshold) {
+    Serial.println("Recording bad user record");
+    badUserRecordFlag = true;
+    recordBadUserRecord();
+  }
+
+  if (currentMillis - lastActivityTime >= sleepThreshold) {
+    Serial.println("Entering sleep mode");
+    delay(500);
+    lc.shutdown(0, true); // Turn off displays
+    delay(1000);
+    lc.shutdown(0, false); // Turn on displays
+    Serial.println("Exiting sleep mode");
+  }
 }
 
 void loop() {
