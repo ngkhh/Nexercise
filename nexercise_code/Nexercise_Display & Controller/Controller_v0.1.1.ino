@@ -1,7 +1,9 @@
 #include <ESP8266WiFi.h>
 #include <FirebaseESP8266.h>
+#include <RTClib.h>
 
 FirebaseData fbdo;
+RTC_DS3231 rtc;
 
 // Constants for Wi-Fi connection
 const char* ssid = "your_wifi_ssid";
@@ -34,6 +36,9 @@ void setupFirebase() {
 
 void setup() {
   Serial.begin(115200);
+
+  // Start RTC
+  rtc.begin();
 
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
@@ -75,9 +80,10 @@ void handleUserInput(char input) {
 }
 
 void recordSessionData() {
+  DateTime now = rtc.now();
   String path = "sessions/" + String(sessionStartTime);
-  Firebase.setString(fbdo, (path + "/start_time").c_str(), String(sessionStartTime).c_str());
-  Firebase.setString(fbdo, (path + "/end_time").c_str(), String(millis()).c_str());
+  Firebase.setString(fbdo, (path + "/start_time").c_str(), now.timestamp(DateTime::TIMESTAMP_FULL).c_str());
+  Firebase.setString(fbdo, (path + "/end_time").c_str(), now.timestamp(DateTime::TIMESTAMP_FULL).c_str());
   Firebase.setString(fbdo, (path + "/user_input").c_str(), String(userInput).c_str());
 }
 
