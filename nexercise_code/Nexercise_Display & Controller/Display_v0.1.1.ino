@@ -1,8 +1,10 @@
 #include <ESP8266WiFi.h>
 #include <FirebaseESP8266.h>
 #include <LedControl.h>
+#include <RTClib.h>
 
 FirebaseData fbdo;
+RTC_DS3231 rtc;
 
 // Constants for Wi-Fi connection
 const char* ssid = "your_wifi_ssid";
@@ -48,6 +50,9 @@ void setupFirebase() {
 void setup() {
   Serial.begin(115200);
 
+  // Setup RTC
+  rtc.begin();
+  
   // Initialize dot matrix displays
   lc.shutdown(0, false); // Wake up displays
   lc.setIntensity(0, 8); // Set brightness (0-15)
@@ -111,23 +116,27 @@ void handleUserInput(char userInput) {
 }
 
 void recordDisplayedAlphabet(char displayedAlphabet) {
+  // Record displayed alphabet in Firebase (session number, displayed alphabet)
   String path = "sessions/" + String(sessionNumber);
   Firebase.setString(fbdo, (path + "/displayed_alphabet").c_str(), String(displayedAlphabet).c_str());
 }
 
 void recordLastActivityTime() {
+  // Record last activity time in Firebase (session number, last activity time)
   String path = "sessions/" + String(sessionNumber);
-  Firebase.setString(fbdo, (path + "/last_activity_time").c_str(), String(lastActivityTime).c_str());
+  Firebase.setString(fbdo, (path + "/last_activity_time").c_str(), String(rtc.now().unixtime()).c_str());
 }
 
 void recordUserWakeTime() {
+  // Record user wake time in Firebase (session number, user wake time)
   String path = "sessions/" + String(sessionNumber);
-  Firebase.setString(fbdo, (path + "/user_wake_time").c_str(), String(userWakeTime).c_str());
+  Firebase.setString(fbdo, (path + "/user_wake_time").c_str(), String(rtc.now().unixtime()).c_str());
 }
 
 void recordBadUserRecord() {
+  // Record bad user record in Firebase (session number, bad user record timestamp)
   String path = "sessions/" + String(sessionNumber);
-  unsigned long badUserRecordTime = millis();
+  unsigned long badUserRecordTime = rtc.now().unixtime();
   Firebase.setString(fbdo, (path + "/bad_user_record").c_str(), String(badUserRecordTime).c_str());
 }
 
