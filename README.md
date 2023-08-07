@@ -17,13 +17,10 @@ Note: there is a sub branch for the connection part of the project
 ## Canva Presentation Link
 - [Click Here](https://www.canva.com/design/DAFoxnthxI0/ibI4w1BqrxuQSFhsBcfMlw/edit)
 
-## Important, Urgent
-- [one link explains all](https://randomnerdtutorials.com/esp-now-two-way-communication-esp8266-nodemcu/)
-
 ## Todo 
 The main goals of the project are as follows:
-- Complete Bill of Materials (BOM) (✔️)
-- Improve the project's PowerPoint presentation (❌)
+- Complete Bill of Materials (BOM) (✔️ 1/2)
+- Improve the project's PowerPoint presentation (✔️)
 - Start writing the script for the project (ChatGPT)
 - Prepare for a comprehensive presentation (Rewrite ChatGPT script, and improve better)
 
