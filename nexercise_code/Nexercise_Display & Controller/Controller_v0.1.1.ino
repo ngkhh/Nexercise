@@ -14,9 +14,9 @@ const char* firebaseHost = "nexercise-69420-default-rtdb.asia-southeast1.firebas
 const char* firebaseAuth = "your_firebase_auth_token";
 
 // Pins for controller buttons and buzzer
-const int buttonWPIN = D1;
-const int buttonMPIN = D2;
-const int buzzerPin = D3;
+const int buttonWPIN = 5;
+const int buttonMPIN = 4;
+const int buzzerPin = 15;
 
 // Game variables
 char userInput;
