@@ -26,9 +26,7 @@ The main goals of the project are as follows:
 
 ## Current Challenges
 The project currently faces the following challenges:
-- ~Laziness~
-- ~Lack of motivation~
-- Skill issue (✔️)
+- Exam soon
 
 ## Work in Progress
 The team is currently working on the following tasks:
