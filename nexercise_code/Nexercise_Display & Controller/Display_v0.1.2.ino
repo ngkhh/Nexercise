@@ -16,8 +16,8 @@ const char* firebaseHost = "https://nexercise-69420-default-rtdb.asia-southeast1
 const char* firebaseAuth = "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4"; // Update with your Firebase project auth token
 
 // Pins for dot matrix displays
-const int dataPin = 14;
-const int clockPin = 12;
+const int dataPin = 12;
+const int clockPin = 15;
 const int csPin = 13;
 
 // Sleep mode parameters
