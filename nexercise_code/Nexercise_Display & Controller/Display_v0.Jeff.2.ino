@@ -268,8 +268,8 @@ void playThisRound() {
 void playNextRound() {
   roundCount++;
   alphabet = randomAlphabet();
-//  currentDisplay = randomDisplay();
-  currentDisplay = 1;
+  currentDisplay = randomDisplay();
+  //currentDisplay = 1;
   Serial.print("Round ");
   Serial.print(roundCount);
   Serial.print(" - Display: ");
@@ -296,7 +296,7 @@ int randomDisplay() {
   return random(0, numDisplays);
 }
 void displayW() {
-  byte W[8] = {0x82, 0x82, 0x82, 0x92, 0x92, 0xAA, 0xC6, 0x82};
+  byte W[8] = {0x82, 0x82, 0x92, 0x92, 0x92, 0xaa, 0xc6, 0x82};
   lc.setRow(0, 0, W[0]);
   lc.setRow(0, 1, W[1]);
   lc.setRow(0, 2, W[2]);
