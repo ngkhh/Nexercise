@@ -231,6 +231,7 @@ void updateFirebaseActivityTime() {
   String path = "";
   unsigned long lastActivityTime = timeClient.getEpochTime(); 
   Serial.println(lastActivityTime);
+  delay(500);
   if (Firebase.RTDB.setString(&fbdo, (path + "/lastActivityTime"), String(lastActivityTime))) {
     Serial.println("firebaseactivitytime Success");
   }
@@ -374,16 +375,22 @@ void sendToDisplay(char alphabet, int displayIndex) {
 
 void recordSessionStart() {
   // Record session start time in Firebase
-  unsigned long sessionStartTime = millis();
+  unsigned long sessionStartTime = timeClient.getEpochTime();
   String path = "sessions/" + String(sessionNumber);
-  Firebase.RTDB.setString(&fbdo, (path + "/start_time"), String(sessionStartTime));
+  if (Firebase.RTDB.setString(&fbdo, (path + "/start_time"), String(sessionStartTime))){
+    Serial.print("Start time: ");
+    Serial.print(sessionStartTime);
+  }
 } 
 
 void recordSessionEnd() {
   // Record session end time in Firebase
-  unsigned long sessionEndTime = millis();
+  unsigned long sessionEndTime = timeClient.getEpochTime();
   String path = "sessions/" + String(sessionNumber);
-  Firebase.RTDB.setString(&fbdo, (path + "/end_time"), String(sessionEndTime));
+  if (Firebase.RTDB.setString(&fbdo, (path + "/end_time"), String(sessionEndTime))){
+    Serial.print("End time: ");
+    Serial.print(sessionEndTime);
+  }
 
 //not needed, because startnewsession() which is called after this
   //Firebase.setString(fbdo, (path + "current/roundCount"), String(0)); //roundCount global variable
