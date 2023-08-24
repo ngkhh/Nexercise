@@ -10,8 +10,8 @@
 //Provide the RTDB payload printing info and other helper functions.
 #include "addons/RTDBHelper.h"
 
-// display id (display number)
-#define THISDISPLAY 1 
+
+#define THISDISPLAY 1 // display id (display number)
 
 FirebaseData fbdo;
 
@@ -162,6 +162,7 @@ void loop() {
       if (userResponse != "0"){
         validateResponse(userResponse); // after validating, run
         runningOnThisDisplay = false;
+        lc.clearDisplay(0);
       }
     }
   }
@@ -210,7 +211,7 @@ void validateResponse(String message) {
     lastActivityTime = millis(); // Update activity time
     //updateFirebaseActivityTime(); // Update last activity time in Firebase
     Firebase.RTDB.setString(&fbdo, "controller1/response", "0");
-    // also move to next round (idk)
+    // also reset round)
     resetRound();
   }
 }
