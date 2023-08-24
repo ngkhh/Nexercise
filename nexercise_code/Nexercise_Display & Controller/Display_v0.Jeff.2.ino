@@ -10,8 +10,8 @@
 //Provide the RTDB payload printing info and other helper functions.
 #include "addons/RTDBHelper.h"
 
-
-#define THISDISPLAY 1 // display id (display number)
+// display id (display number)
+#define THISDISPLAY 1 
 
 FirebaseData fbdo;
 
@@ -199,7 +199,7 @@ void validateResponse(String message) {
     displaySymbol(charToDisplay);
     lastActivityTime = millis(); // Update activity time
     updateFirebaseActivityTime(); // Update last activity time in Firebase
-          Firebase.RTDB.setString(&fbdo, "controller1/response", "0");
+    Firebase.RTDB.setString(&fbdo, "controller1/response", "0");
     // move to next round! 
     playNextRound();
   }
@@ -209,9 +209,9 @@ void validateResponse(String message) {
     displaySymbol(charToDisplay);
     lastActivityTime = millis(); // Update activity time
     //updateFirebaseActivityTime(); // Update last activity time in Firebase
-              Firebase.RTDB.setString(&fbdo, "controller1/response", "0");
+    Firebase.RTDB.setString(&fbdo, "controller1/response", "0");
     // also move to next round (idk)
-    playNextRound();
+    resetRound();
   }
 }
 
@@ -265,6 +265,25 @@ void playThisRound() {
   }
 }
 
+void resetRound() {
+  roundCount = 0;
+  alphabet = randomAlphabet();
+  currentDisplay = randomDisplay();
+  //currentDisplay = 1;
+  Serial.print("Round ");
+  Serial.print(roundCount);
+  Serial.print(" - Display: ");
+  Serial.print(currentDisplay);
+  Serial.print(" | Alphabet: ");
+  Serial.println(alphabet);
+  if (currentDisplay == THISDISPLAY) {
+    sendToDisplay(alphabet, currentDisplay);
+  }
+  else {
+    sendToDisplay(alphabet, currentDisplay);
+  }
+}
+
 void playNextRound() {
   roundCount++;
   alphabet = randomAlphabet();
@@ -309,7 +328,7 @@ void displayW() {
 }
 
 void displayM() {
-  byte M[8] = {0x82, 0xC6, 0xAA, 0x92, 0x92, 0x82, 0x82, 0x82};
+  byte M[8] = {0x82, 0xc6, 0xaa, 0x92, 0x92, 0x82, 0x82, 0x82};
   lc.setRow(0, 0, M[0]);
   lc.setRow(0, 1, M[1]);
   lc.setRow(0, 2, M[2]);
