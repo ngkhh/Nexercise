@@ -17,6 +17,11 @@ Note: there is a sub branch for the connection part of the project
 ## Canva Presentation Link
 - [Click Here](https://www.canva.com/design/DAFoxnthxI0/ibI4w1BqrxuQSFhsBcfMlw/edit)
 
+## Libraries needed:
+- LedControl 1.0.6 (newer versions may not work)
+- Firebase Arduino Client Library for ESP8266 and ESP32 4.3.19
+![libraries](https://github.com/ngkhh/Nexercise/assets/107295762/6fd3b4a4-1e90-485e-8b3f-b38bbda686df)
+
 ## Todo 
 The main goals of the project are as follows:
 - Complete Bill of Materials (BOM) (✔️ 1/2)
