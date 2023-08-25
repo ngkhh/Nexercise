@@ -61,12 +61,11 @@ void setup() {
   // Initialize user input pin
   pinMode(userInputPin, INPUT_PULLUP);
 
-  Serial.begin(115200);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
   while (WiFi.status() != WL_CONNECTED){
-    Serial.print(".");
-    delay(300);
+    Serial.println("Connecting...");
+    delay(500);
   }
   Serial.println();
   Serial.print("Connected with IP: ");
