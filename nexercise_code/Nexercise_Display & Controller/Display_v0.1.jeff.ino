@@ -50,6 +50,151 @@ bool runningOnThisDisplay = false;
 bool signupOK = false;
 String userResponse;
 
+void recordSessionStart() {
+  // Record session start time in Firebase
+  unsigned long sessionStartTime = millis();
+  String path = "/sessions/" + String(sessionNumber);
+  Firebase.RTDB.setString(&fbdo, (path + "/start_time"), String(sessionStartTime));
+}
+
+void recordSessionEnd() {
+  // Record session end time in Firebase
+  unsigned long sessionEndTime = millis();
+  String path = "/sessions/" + String(sessionNumber);
+  Firebase.RTDB.setString(&fbdo, (path + "/end_time"), String(sessionEndTime));
+
+//not needed, because startnewsession() which is called after this
+  //Firebase.setString(fbdo, (path + "current/roundCount"), String(0)); //roundCount global variable
+  //Firebase.setString(fbdo, (path + "current/sessionNumber"), String(0)); //sessionNumber global variable
+}
+
+int generateSessionNumber() {
+  // Generate a random session number between 1 and 1000
+  return random(1, 1001);
+}
+
+
+int randomDisplay() {
+  return random(0, numDisplays);
+}
+
+void displayAlphabet(char alphabet, int displayIndex) {
+  lc.clearDisplay(0);             // Clear all displays
+  lc.setChar(0, displayIndex, alphabet, false); // Display the alphabet (no selected displays)
+}
+
+void sendToDisplay(char alphabet, int displayIndex) {
+  //save to firebase the alphabet to display in the next random display
+  String path = "/";
+  Firebase.RTDB.setString(&fbdo, (path + "current/alphabet"), String(alphabet));
+  Firebase.RTDB.setString(&fbdo, (path + "current/displayIndex"), String(displayIndex));
+  Firebase.RTDB.setString(&fbdo, (path + "current/roundCount"), String(roundCount)); //roundCount global variable
+  Firebase.RTDB.setString(&fbdo, (path + "current/sessionNumber"), String(sessionNumber)); //roundCount global variable
+}
+
+char randomAlphabet() {
+  char alphabets[] = {'M', 'W'};
+  int index = random(0, 2);
+  return alphabets[index];
+}
+
+
+void playNextRound() {
+  roundCount++;
+  alphabet = randomAlphabet();
+  currentDisplay = randomDisplay();
+  if (currentDisplay == THISDISPLAY) {
+    displayAlphabet(alphabet, currentDisplay);
+  }
+  else {
+    sendToDisplay(alphabet, currentDisplay);
+  }
+
+  Serial.print("Round ");
+  Serial.print(roundCount);
+  Serial.print(" - Display: ");
+  Serial.print(currentDisplay);
+  Serial.print(" | Alphabet: ");
+  Serial.println(alphabet);
+}
+
+void displaySymbol(char c) {
+  byte charTick[8] = {B00000000, B00000010,B00000101,B00001000,B00010000,B10100000,B01000000,B00000000};
+  byte charCross[8] = {  B10000001,
+  B01000010,
+  B00100100,
+  B00011000,
+  B00011000,
+  B00100100,
+  B01000010,
+  B10000001};
+  
+  for (int i = 0; i < 8; i++) {
+    lc.clearDisplay(0);
+    lc.setRow(0, i, c == 'T' ? charTick[i] : charCross[i]);
+  }
+}
+
+
+
+void validateResponse(String message) {
+  // start with this
+  if (message.charAt(0) == alphabet) {
+    //show tick if correct
+    char charToDisplay = 'T';
+    displaySymbol(charToDisplay);
+    lastActivityTime = millis(); // Update activity time
+    //updateFirebaseActivityTime(); // Update last activity time in Firebase
+    // move to next round! 
+    playNextRound();
+  }
+  else {
+    // show cross if selected wrong alphabet
+    char charToDisplay = 'X';
+    displaySymbol(charToDisplay);
+    lastActivityTime = millis(); // Update activity time
+    //updateFirebaseActivityTime(); // Update last activity time in Firebase
+    // also move to next round (idk)
+    playNextRound();
+  }
+}
+
+
+/*void updateFirebaseActivityTime() {
+  // Update last activity time in Firebase when user interacts with controller
+  //String path = "/display/" + String(THISDISPLAY);
+  Firebase.RTDB.setString(&fbdo, ("lastActivityTime/"), String(lastActivityTime));
+}*/
+
+void startNewSession() {
+  roundCount = 0;
+  sessionNumber = generateSessionNumber();
+  Serial.print("Starting session number: ");
+  Serial.println(sessionNumber);
+
+  recordSessionStart();
+  playNextRound();
+}
+void playThisRound() {
+  if (currentDisplay == THISDISPLAY) {
+    displayAlphabet(alphabet, currentDisplay);
+  }
+}
+
+void continueSession() {
+  Serial.print("Continuing session number: ");
+  Serial.println(sessionNumber);
+
+  playThisRound();
+}
+
+
+
+
+
+
+
+
 void setup() {
   Serial.begin(115200);
 
@@ -162,137 +307,3 @@ void loop() {
   delay(100);
 }
 
-void validateResponse(String message) {
-  // start with this
-  if (message.charAt(0) == alphabet) {
-    //show tick if correct
-    char charToDisplay = 'T';
-    displaySymbol(charToDisplay);
-    lastActivityTime = millis(); // Update activity time
-    //updateFirebaseActivityTime(); // Update last activity time in Firebase
-    // move to next round! 
-    playNextRound();
-  }
-  else {
-    // show cross if selected wrong alphabet
-    char charToDisplay = 'X';
-    displaySymbol(charToDisplay);
-    lastActivityTime = millis(); // Update activity time
-    //updateFirebaseActivityTime(); // Update last activity time in Firebase
-    // also move to next round (idk)
-    playNextRound();
-  }
-}
-
-void displaySymbol(char c) {
-  byte charTick[8] = {B00000000, B00000010,B00000101,B00001000,B00010000,B10100000,B01000000,B00000000};
-  byte charCross[8] = {  B10000001,
-  B01000010,
-  B00100100,
-  B00011000,
-  B00011000,
-  B00100100,
-  B01000010,
-  B10000001};
-  
-  for (int i = 0; i < 8; i++) {
-    lc.clearDisplay(0);
-    lc.setRow(0, i, c == 'T' ? charTick[i] : charCross[i]);
-  }
-}
-
-/*void updateFirebaseActivityTime() {
-  // Update last activity time in Firebase when user interacts with controller
-  //String path = "/display/" + String(THISDISPLAY);
-  Firebase.RTDB.setString(&fbdo, ("lastActivityTime/"), String(lastActivityTime));
-}*/
-
-void startNewSession() {
-  roundCount = 0;
-  sessionNumber = generateSessionNumber();
-  Serial.print("Starting session number: ");
-  Serial.println(sessionNumber);
-
-  recordSessionStart();
-  playNextRound();
-}
-
-void continueSession() {
-  Serial.print("Continuing session number: ");
-  Serial.println(sessionNumber);
-
-  playThisRound();
-}
-
-void playThisRound() {
-  if (currentDisplay == THISDISPLAY) {
-    displayAlphabet(alphabet, currentDisplay);
-  }
-}
-
-void playNextRound() {
-
-  roundCount++;
-  alphabet = randomAlphabet();
-  currentDisplay = randomDisplay();
-  if (currentDisplay == THISDISPLAY) {
-    displayAlphabet(alphabet, currentDisplay);
-  }
-  else {
-    sendToDisplay(alphabet, currentDisplay);
-  }
-
-  Serial.print("Round ");
-  Serial.print(roundCount);
-  Serial.print(" - Display: ");
-  Serial.print(currentDisplay);
-  Serial.print(" | Alphabet: ");
-  Serial.println(alphabet);
-}
-
-char randomAlphabet() {
-  char alphabets[] = {'M', 'W'};
-  int index = random(0, 2);
-  return alphabets[index];
-}
-
-int randomDisplay() {
-  return random(0, numDisplays);
-}
-
-void displayAlphabet(char alphabet, int displayIndex) {
-  lc.clearDisplay(0);             // Clear all displays
-  lc.setChar(0, displayIndex, alphabet, false); // Display the alphabet (no selected displays)
-}
-
-void sendToDisplay(char alphabet, int displayIndex) {
-  //save to firebase the alphabet to display in the next random display
-  String path = "/";
-  Firebase.RTDB.setString(&fbdo, (path + "current/alphabet"), String(alphabet));
-  Firebase.RTDB.setString(&fbdo, (path + "current/displayIndex"), String(displayIndex));
-  Firebase.RTDB.setString(&fbdo, (path + "current/roundCount"), String(roundCount)); //roundCount global variable
-  Firebase.RTDB.setString(&fbdo, (path + "current/sessionNumber"), String(sessionNumber)); //roundCount global variable
-}
-
-void recordSessionStart() {
-  // Record session start time in Firebase
-  unsigned long sessionStartTime = millis();
-  String path = "/sessions/" + String(sessionNumber);
-  Firebase.RTDB.setString(&fbdo, (path + "/start_time"), String(sessionStartTime));
-}
-
-void recordSessionEnd() {
-  // Record session end time in Firebase
-  unsigned long sessionEndTime = millis();
-  String path = "/sessions/" + String(sessionNumber);
-  Firebase.RTDB.setString(&fbdo, (path + "/end_time"), String(sessionEndTime));
-
-//not needed, because startnewsession() which is called after this
-  //Firebase.setString(fbdo, (path + "current/roundCount"), String(0)); //roundCount global variable
-  //Firebase.setString(fbdo, (path + "current/sessionNumber"), String(0)); //sessionNumber global variable
-}
-
-int generateSessionNumber() {
-  // Generate a random session number between 1 and 1000
-  return random(1, 1001);
-}
