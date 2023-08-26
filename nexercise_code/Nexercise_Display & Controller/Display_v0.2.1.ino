@@ -170,7 +170,10 @@ void loop() {
   /*if (millis() - lastActivityTime >= sleepTimeout) {
     enterSleepMode();
   }*/
-
+  timeClient.update();
+  Serial.print("Received Time: ");
+  Serial.println(timeClient.getFormattedTime());
+  
   // Check for session completion
   if (roundCount >= numRounds) {
     // All rounds completed for the session
