@@ -4,7 +4,7 @@
 #include <ESP8266WiFi.h>
 #include <LedControl.h>
 
-  
+
 //Provide the token generation process info.
 #include "addons/TokenHelper.h"
 //Provide the RTDB payload printing info and other helper functions.
@@ -19,14 +19,14 @@ FirebaseAuth auth;
 FirebaseConfig config;
 
 // Insert your network credentials
-#define WIFI_SSID "CLPHS_Admin"
-#define WIFI_PASSWORD "smclp8283655"
+#define WIFI_SSID "Unicorn2012-5GHz"
+#define WIFI_PASSWORD "Finance@5408"
 
 // Insert Firebase project API Key
 #define API_KEY "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4"
 
 // Insert RTDB URLefine the RTDB URL */
-#define DATABASE_URL "nexercise-69420-default-rtdb.asia-southeast1.firebasedatabase.app" 
+#define DATABASE_URL "nexercise-69420-default-rtdb.asia-southeast1.firebasedatabase.app"
 
 // Pins for dot matrix displays
 //const int dataPin = 14;
@@ -62,7 +62,7 @@ void setup() {
 
   timeClient.begin();
   timeClient.setTimeOffset(28800);
-  timeClient.setUpdaterInterval(1000);
+  timeClient.setUpdateInterval(1000);
 
   // Initialize dot matrix displays
   lc.shutdown(0, false); // Wake up displays
@@ -75,7 +75,7 @@ void setup() {
   Serial.begin(115200);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.println("Connecting to Wi-Fi");
-  while (WiFi.status() != WL_CONNECTED){
+  while (WiFi.status() != WL_CONNECTED) {
     Serial.println("Connecting...");
     delay(500);
   }
@@ -91,17 +91,17 @@ void setup() {
   config.database_url = DATABASE_URL;
 
   /* Sign up */
-  if (Firebase.signUp(&config, &auth, "", "")){
+  if (Firebase.signUp(&config, &auth, "", "")) {
     Serial.println("Firebase OK");
     signupOK = true;
   }
-  else{
+  else {
     Serial.printf("%s\n", config.signer.signupError.message);
   }
 
   /* Assign the callback function for the long running token generation task */
   config.token_status_callback = tokenStatusCallback; //see addons/TokenHelper.h
-  
+
   Firebase.begin(&config, &auth);
   Firebase.reconnectWiFi(true);
 }
@@ -138,9 +138,9 @@ void loop() {
       Serial.println(currentDisplay);
       Serial.println(roundCount);
       Serial.println(sessionNumber);
-      
+
       if (currentDisplay == THISDISPLAY) {
-        runningOnThisDisplay = true;      
+        runningOnThisDisplay = true;
         if (roundCount >= 1) {
           continueSession();
         }
@@ -154,26 +154,28 @@ void loop() {
     // check for button press from controller
     updateFirebaseActivityTime(); // Update last activity time only when active
     if (Firebase.ready()) {
-      if (Firebase.RTDB.getString(&fbdo, "controller1/response")){
+      if (Firebase.RTDB.getString(&fbdo, "controller1/response")) {
         userResponse = fbdo.to<String>();
+        delay(1000);
       }
-//      Firebase.RTDB.setString(&fbdo, "controller1/response", "0");
-      if (userResponse != "0"){
+      //      Firebase.RTDB.setString(&fbdo, "controller1/response", "0");
+      if (userResponse != "0") {
         validateResponse(userResponse); // after validating, run
         runningOnThisDisplay = false;
+        delay(1000);
         lc.clearDisplay(0);
       }
     }
   }
-  
+
   // Check for user inactivity to enter sleep mode
   /*if (millis() - lastActivityTime >= sleepTimeout) {
     enterSleepMode();
-  }*/
+    }*/
   timeClient.update();
   Serial.print("Received Time: ");
   Serial.println(timeClient.getFormattedTime());
-  
+
   // Check for session completion
   if (roundCount >= numRounds) {
     // All rounds completed for the session
@@ -196,7 +198,7 @@ void validateResponse(String message) {
     char charToDisplay = 'T';
     displaySymbol(charToDisplay);
     Firebase.RTDB.setString(&fbdo, "controller1/response", "0");
-    // move to next round! 
+    // move to next round!
     playNextRound();
   }
   else {
@@ -210,19 +212,20 @@ void validateResponse(String message) {
 }
 
 void displaySymbol(char s) {
-  byte charCross[8] = {0x81,0x42,0x24,0x08,0x10,0x24,0x42,0x81};
-  byte charTick[8] = {0x00,0x01,0x02,0x04,0x08,0x90,0xa0,0x40};
-  
+  byte charCross[8] = {0x81, 0x42, 0x24, 0x08, 0x10, 0x24, 0x42, 0x81};
+  byte charTick[8] = {0x00, 0x01, 0x02, 0x04, 0x08, 0x90, 0xa0, 0x40};
+
   for (int i = 0; i < 8; i++) {
-//    lc.clearDisplay(0);
+    //    lc.clearDisplay(0);
     lc.setRow(0, i, s == 'T' ? charTick[i] : charCross[i]);
+
   }
 }
 
 void updateFirebaseActivityTime() {
   // Update last activity time in Firebase when user interacts with controller
   String path = "";
-  unsigned long lastActivityTime = timeClient.getEpochTime(); 
+  unsigned long lastActivityTime = timeClient.getEpochTime();
   Serial.println(lastActivityTime);
   delay(500);
   if (Firebase.RTDB.setString(&fbdo, (path + "/lastActivityTime"), String(lastActivityTime))) {
@@ -338,19 +341,19 @@ void displayM() {
 
 void displayAlphabet(char alphabet, int displayIndex) {
   //lc.clearDisplay(0); // Clear the display
-  
+
   if (alphabet == 'M') {
-//    for (int i = 0; i < 8; i++) {
-//      lc.setRow(0, i, charM[i]);  // Display 'M' pattern on the selected display
-//    }
+    //    for (int i = 0; i < 8; i++) {
+    //      lc.setRow(0, i, charM[i]);  // Display 'M' pattern on the selected display
+    //    }
     displayM();
   } else if (alphabet == 'W') {
-//    for (int i = 0; i < 8; i++) {
-//      lc.setRow(0, i, charW[i]);  // Display 'W' pattern on the selected display
-//    }
+    //    for (int i = 0; i < 8; i++) {
+    //      lc.setRow(0, i, charW[i]);  // Display 'W' pattern on the selected display
+    //    }
     displayW();
   }
-  
+
   lc.setChar(0, displayIndex, ' ', false); // Display the alphabet (no selected displays)
 }
 
@@ -360,7 +363,7 @@ void sendToDisplay(char alphabet, int displayIndex) {
   String path = "/current/";
   FirebaseJson json;
   json.set(("alphabet"), String(alphabet));
-  json.set(("displayIndex"),displayIndex);
+  json.set(("displayIndex"), displayIndex);
   json.set(("roundCount"), roundCount);
   json.set(("sessionNumber"), sessionNumber);
   Firebase.RTDB.setJSON(&fbdo, (path), &json);
@@ -370,22 +373,22 @@ void recordSessionStart() {
   // Record session start time in Firebase
   unsigned long sessionStartTime = timeClient.getEpochTime();
   String path = "sessions/" + String(sessionNumber);
-  if (Firebase.RTDB.setString(&fbdo, (path + "/start_time"), String(sessionStartTime))){
+  if (Firebase.RTDB.setString(&fbdo, (path + "/start_time"), String(sessionStartTime))) {
     Serial.print("Start time: ");
     Serial.print(sessionStartTime);
   }
-} 
+}
 
 void recordSessionEnd() {
   // Record session end time in Firebase
   unsigned long sessionEndTime = timeClient.getEpochTime();
   String path = "sessions/" + String(sessionNumber);
-  if (Firebase.RTDB.setString(&fbdo, (path + "/end_time"), String(sessionEndTime))){
+  if (Firebase.RTDB.setString(&fbdo, (path + "/end_time"), String(sessionEndTime))) {
     Serial.print("End time: ");
     Serial.print(sessionEndTime);
   }
 
-//not needed, because startnewsession() which is called after this
+  //not needed, because startnewsession() which is called after this
   //Firebase.setString(fbdo, (path + "current/roundCount"), String(0)); //roundCount global variable
   //Firebase.setString(fbdo, (path + "current/sessionNumber"), String(0)); //sessionNumber global variable
 }
