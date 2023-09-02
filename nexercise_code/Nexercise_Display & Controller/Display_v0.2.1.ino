@@ -19,8 +19,8 @@ FirebaseAuth auth;
 FirebaseConfig config;
 
 // Insert your network credentials
-#define WIFI_SSID "Unicorn2012-5GHz"
-#define WIFI_PASSWORD "Finance@5408"
+#define WIFI_SSID "CLPHS_Admin"
+#define WIFI_PASSWORD "smclp8283655"
 
 // Insert Firebase project API Key
 #define API_KEY "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4"
