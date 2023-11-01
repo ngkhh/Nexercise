@@ -57,28 +57,6 @@ Use Firebase to connect each of the ESP8266
 - 0.3.1 Modified the screw holes to fit smaller screws
 - 0.3.2 Slightly moved screw holes to compensate for smaller size
 - 0.3.3 Fixed positioning of charging port hole (finally), added mounts for magnets, enlarged dot matrix opening, lowered screw mounts, added hole to use the power switch
-
-
-## Not Important, Not Urgent Stuff
-- MQTT Client Library for ESP8266:
-  - [PubSubClient Library on GitHub](https://github.com/knolleary/pubsubclient)
-
-- Getting Started with MQTT and ESP8266:
-  - [What is MQTT and How Does It Work?](https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/)
-
-## MQTT Connection Guide
-For a beginner's guide on MQTT connection, please refer to the following link:
-- [MQTT Connection Beginner's Guide](https://cedalo.com/blog/mqtt-connection-beginners-guide/)
-
-## Useful Resources
-Here are some helpful resources related to the project:
-
-- MQTT Connection Example with Arduino and Server-Signed Certificate:
-  - [Arduino Example with Server-Signed Certificate](https://community.hivemq.com/t/arduino-example-with-server-signed-certificate/502)
-
-- MQTT Help (suggested by Wong Yi Jin, Senior Alumni):
-  - [ESP32 Publishing Messages to MQTT Topic](https://techtutorialsx.com/2017/04/24/esp32-publishing-messages-to-mqtt-topic/)
-  - [ESP32 MQTT Publish/Subscribe with Arduino IDE](https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/)
  
 --------------------------------------------------------------------
 #                             FIREBASE
