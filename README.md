@@ -33,17 +33,8 @@ The main goals of the project are as follows:
 The project currently faces the following challenges:
 - Exam soon
 
-## Work in Progress
-The team is currently working on the following tasks:
-- ~Implementing MQTT on ESP8266 microcontrollers~
-- Displaying a randomized alphabet on a dot matrix
-- Integrating two buttons representing "W" and "M"
-- Designing a schematic, PCB, and case for the project (✔️)
-
 ## Planned Features
-The following features are planned for future development:
-- ~Connecting four ESP8266 microcontrollers using MQTT~ (Not important + Not urgent)
-- Combining the buttons and dot matrix to create a game
+Use Firebase to connect each of the ESP8266
 
 ## Additional Resources
 
