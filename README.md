@@ -1,6 +1,6 @@
 # Nexercise
 
-This is the README file for the Nexercise GitHub project. Nexercise is a project focused on utilizing MQTT communication and ESP8266 microcontrollers to create an interactive exercise game. This document provides information on how to set up and use the project, as well as relevant links and resources.
+This is the README file for the Nexercise GitHub project. Nexercise is a project focused on utilizing Firebase and ESP8266 microcontrollers to create an interactive exercise game. This document provides information on how to set up and use the project, as well as relevant links and resources.
 
 Note: there is a sub branch for the connection part of the project
 
