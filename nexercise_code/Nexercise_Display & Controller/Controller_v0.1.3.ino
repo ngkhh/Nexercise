@@ -20,7 +20,8 @@ FirebaseConfig config;
 
 // Insert your network credentials
 #define WIFI_SSID "CLPHS_Admin"
-#define WIFI_PASSWORD "smclp8283655"
+#define WIFI_PASSWORD "smclp8283655" 
+/* they fucking changed admin password so this doesnt work anymore */
 
 // Insert Firebase project API Key
 #define API_KEY "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4"
