@@ -22,19 +22,8 @@ Note: there is a sub branch for the connection part of the project
 - Firebase Arduino Client Library for ESP8266 and ESP32 4.3.19
 ![libraries](https://github.com/ngkhh/Nexercise/assets/107295762/6fd3b4a4-1e90-485e-8b3f-b38bbda686df)
 
-## Todo 
-The main goals of the project are as follows:
-- Complete Bill of Materials (BOM) (✔️ 1/2)
-- Improve the project's PowerPoint presentation (✔️)
-- Start writing the script for the project (ChatGPT)
-- Prepare for a comprehensive presentation (Rewrite ChatGPT script, and improve better)
-
-## Current Challenges
-The project currently faces the following challenges:
-- Exam soon
-
-## Planned Features
-Use Firebase to connect each of the ESP8266
+## Todo
+- NONE WE DID IT AUGHH
 
 ## Additional Resources
 
@@ -59,7 +48,7 @@ Use Firebase to connect each of the ESP8266
 - 0.3.3 Fixed positioning of charging port hole (finally), added mounts for magnets, enlarged dot matrix opening, lowered screw mounts, added hole to use the power switch
  
 --------------------------------------------------------------------
-#                             FIREBASE
+#                             FIREBASE (not important)
 
 # Firebase CLI [![Actions Status][gh-actions-badge]][gh-actions] [![Node Version][node-badge]][npm] [![NPM version][npm-badge]][npm]
 
