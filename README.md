@@ -1,5 +1,6 @@
 # Nexercise
-# This project is currently finished 
+# This project is currently finished and archived :)
+# thank you for everything
 ## Won prize(s): TKK Young Inovation: MERIT PRIZE
 
 This is the README file for the Nexercise GitHub project. Nexercise is a project focused on utilizing Firebase and ESP8266 microcontrollers to create an interactive exercise game. This document provides information on how to set up and use the project, as well as relevant links and resources.
