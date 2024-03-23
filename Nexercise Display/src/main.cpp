@@ -19,11 +19,11 @@ FirebaseAuth auth;
 FirebaseConfig config;
 
 // Insert your network credentials
-#define WIFI_SSID "CLPHS_Admin"
-#define WIFI_PASSWORD "smclp8283655"
+#define WIFI_SSID "ni"
+#define WIFI_PASSWORD "ck"
 
 // Insert Firebase project API Key
-#define API_KEY "AIzaSyAdoJOTRJejgaR3O6bQSw-xwW5OoLrs0i4"
+#define API_KEY "1234 i declare a world war"
 
 // Insert RTDB URLefine the RTDB URL */
 #define DATABASE_URL "nexercise-69420-default-rtdb.asia-southeast1.firebasedatabase.app"
